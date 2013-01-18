@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<maudeml>
+ <result cpu-time-ms="0" real-time-ms="0" total-rewrites="627">
+  <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+   <term op="C" sort="CellLabel"/>
+   <term op="__" sort="NeBag">
+    <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+     <term op="k" sort="CellLabel"/>
+     
+     <term op="#_" sort="KLabel">
+       <term op="false" sort="#Bool"/>
+      <term op=".List`{K`}" sort="List`{KResult`}"/>
+     </term>
+     <term op="k" sort="CellLabel"/>
+    </term>
+    <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+     <term op="N" sort="CellLabel"/>
+     
+     <term op="#_" sort="KLabel">
+       <term op="0" sort="#Zero"/>
+      <term op=".List`{K`}" sort="List`{KResult`}"/>
+     </term>
+     <term op="N" sort="CellLabel"/>
+    </term>
+    <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+     <term op="Store" sort="CellLabel"/>
+     <term op="__" sort="NeSet">
+      <term op="SetItem" sort="SetItem">
+       
+      <term op="'_:-_" sort="KLabel">
+        <term op="'_`(_`)" sort="KLabel">
+         <term op="#_" sort="KLabel">
+             <term op="#id_" sort="#Id">
+              <term op="&quot;test&quot;" sort="#String"/>
+             </term>
+            <term op=".List`{K`}" sort="List`{KResult`}"/>
+         </term>
+         <term op="'_`,_" sort="KLabel">
+          <term op="#_" sort="KLabel">
+               <term number="1" op="sNat_" sort="#NzNat">
+                <term op="0" sort="#Zero"/>
+               </term>
+              <term op=".List`{K`}" sort="List`{KResult`}"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;t&quot;" sort="#Char"/>
+                 </term>
+                <term op=".List`{K`}" sort="List`{KResult`}"/>
+           </term>
+           <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+            <term op=".List`{K`}" sort="List`{KResult`}"/>
+           </term>
+          </term>
+         </term>
+        </term>
+        <term op="'_`,_" sort="KLabel">
+         <term op="'_`(_`)" sort="KLabel">
+          <term op="#_" sort="KLabel">
+               <term op="#id_" sort="#Id">
+                <term op="&quot;test1&quot;" sort="#String"/>
+               </term>
+              <term op=".List`{K`}" sort="List`{KResult`}"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;a&quot;" sort="#Char"/>
+                 </term>
+                <term op=".List`{K`}" sort="List`{KResult`}"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                   <term op="#id_" sort="#Id">
+                    <term op="&quot;b&quot;" sort="#Char"/>
+                   </term>
+                  <term op=".List`{K`}" sort="List`{KResult`}"/>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".List`{K`}" sort="List`{KResult`}"/>
+            </term>
+           </term>
+          </term>
+         </term>
+         <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+          <term op=".List`{K`}" sort="List`{KResult`}"/>
+         </term>
+        </term>
+       </term>
+      </term>
+      <term op="SetItem" sort="SetItem">
+       
+      <term op="'_:-_" sort="KLabel">
+        <term op="'_`(_`)" sort="KLabel">
+         <term op="#_" sort="KLabel">
+             <term op="#id_" sort="#Id">
+              <term op="&quot;test1&quot;" sort="#String"/>
+             </term>
+            <term op=".List`{K`}" sort="List`{KResult`}"/>
+         </term>
+         <term op="'_`,_" sort="KLabel">
+          <term op="#_" sort="KLabel">
+               <term op="#id_" sort="#Id">
+                <term op="&quot;a&quot;" sort="#Char"/>
+               </term>
+              <term op=".List`{K`}" sort="List`{KResult`}"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;c&quot;" sort="#Char"/>
+                 </term>
+                <term op=".List`{K`}" sort="List`{KResult`}"/>
+           </term>
+           <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+            <term op=".List`{K`}" sort="List`{KResult`}"/>
+           </term>
+          </term>
+         </term>
+        </term>
+        <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+         <term op=".List`{K`}" sort="List`{KResult`}"/>
+        </term>
+       </term>
+      </term>
+     </term>
+     <term op="Store" sort="CellLabel"/>
+    </term>
+    <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+     <term op="Mgu" sort="CellLabel"/>
+     <term op="__" sort="NeMap">
+      <term op="_|-&gt;_" sort="MapItem">
+       
+       <term op="#_" sort="KLabel">
+         <term op="#id_" sort="#Id">
+          <term op="&quot;a&quot;" sort="#Char"/>
+         </term>
+        <term op=".List`{K`}" sort="List`{KResult`}"/>
+       </term>
+      <term op="#_" sort="KLabel">
+         <term op="#id_" sort="#Id">
+          <term op="&quot;a&quot;" sort="#Char"/>
+         </term>
+        <term op=".List`{K`}" sort="List`{KResult`}"/>
+       </term>
+      </term>
+      <term op="_|-&gt;_" sort="MapItem">
+       
+       <term op="#_" sort="KLabel">
+         <term op="#id_" sort="#Id">
+          <term op="&quot;t&quot;" sort="#Char"/>
+         </term>
+        <term op=".List`{K`}" sort="List`{KResult`}"/>
+       </term>
+      <term op="#_" sort="KLabel">
+         <term op="#id_" sort="#Id">
+          <term op="&quot;t&quot;" sort="#Char"/>
+         </term>
+        <term op=".List`{K`}" sort="List`{KResult`}"/>
+       </term>
+      </term>
+      <term op="_|-&gt;_" sort="MapItem">
+       
+       <term op="#_" sort="KLabel">
+         <term number="1" op="sNat_" sort="#NzNat">
+          <term op="0" sort="#Zero"/>
+         </term>
+        <term op=".List`{K`}" sort="List`{KResult`}"/>
+       </term>
+      <term op="#_" sort="KLabel">
+         <term number="1" op="sNat_" sort="#NzNat">
+          <term op="0" sort="#Zero"/>
+         </term>
+        <term op=".List`{K`}" sort="List`{KResult`}"/>
+       </term>
+      </term>
+     </term>
+     <term op="Mgu" sort="CellLabel"/>
+    </term>
+   </term>
+   <term op="C" sort="CellLabel"/>
+  </term>
+ </result>
+</maudeml>

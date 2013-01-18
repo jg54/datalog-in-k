@@ -1,0 +1,665 @@
+mod DATALOG-SYNTAX is
+sort String .
+subsort String < Term .
+sort Id .
+subsort Id < Term .
+sort Int .
+subsort Int < Term .
+
+op _`,_ : K K -> K [prec 120 metadata " hybrid=() location=(/home/k/shared/Datalog_in_K/datalog.k:8:19:8:33)"] .
+op .List`{","`} : -> K .
+
+subsort Id < PredicateSymbol .
+subsort String < PredicateSymbol .
+
+op _`(_`) : PredicateSymbol  Terms  -> Literal [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:13:21:13:50)"] .
+
+
+op _:-_ : Literal  Literals -> Clause [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:17:20:17:41)"] .
+
+
+op _. : Clause  -> Stmt [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:21:18:21:28)"] .
+op _._ : Clause  Stmt -> Stmt [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:22:8:22:23)"] .
+
+op _? : Literal  -> Query [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:24:19:24:30)"] .
+
+op __ : Stmt Query -> Program [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:26:21:26:31)"] .
+
+
+endm 
+mod DATALOG is
+including DATALOG-SYNTAX .
+op Sld`(_`) :   Map  -> K [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:33:16:33:24)"] .
+op unify`(_`,_`) :   Terms  Terms  -> K [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:33:27:33:46)"] .
+op does not unify : -> K .
+op done : -> K .
+op return : -> K .
+op reverse`(_`) :   Terms  -> K [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:33:86:33:100)"] .
+
+
+
+
+mb rule __(<_>_</_>(k, _=>_(__(_._(C:Clause,S:Stmt),Q:Query),__(S:Stmt,Q:Query)), k),<_>_</_>(__(Store,_=_(ellipses,"both")), _=>_((.).Set,SetItem(C:Clause)), Store))  : KSentence [label Assertion metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:45:2:47:41)"] .
+mb rule __(<_>_</_>(k, _=>_(__(_.(C:Clause),Q:Query),Q:Query), k),<_>_</_>(__(Store,_=_(ellipses,"both")), _=>_((.).Set,SetItem(C:Clause)), Store))  : KSentence [label Assertion-Last-Clause metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:49:2:51:41)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_?(_`(_`)(S:PredicateSymbol,T:Terms)),_~>_(_`(_`)(S:PredicateSymbol,T:Terms),Sld`(_`)((.).Map))), k)  : KSentence [label Query-Begin metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:54:2:55:72)"] .
+mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _~>_(_=>_(_`(_`)(S:PredicateSymbol,T:Terms),_~>_(unify`(_`,_`)(T:Terms,T2:Terms),L:Literals,_`(_`)(S:PredicateSymbol,T:Terms))),Sld`(_`)(?:Map)), k),<_>_</_>(__(Store,_=_(ellipses,"both")), SetItem(_:-_(_`(_`)(S:PredicateSymbol,T2:Terms),L:Literals)), Store))  : KSentence [label Query-Locate-Rule metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:57:2:59:61)"] .
+
+mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_`,_(_`(_`)(S:PredicateSymbol,T:Terms),Ls:Literals),_~>_(unify`(_`,_`)(T:Terms,T2:Terms),L:Literals,_`,_(_`(_`)(S:PredicateSymbol,T:Terms),Ls:Literals))), k),<_>_</_>(__(Store,_=_(ellipses,"both")), SetItem(_:-_(_`(_`)(S:PredicateSymbol,T2:Terms),L:Literals)), Store))  : KSentence [label next-rule metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:62:2:64:61)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(.List`{","`},done), k)  : KSentence [label Empty-Goal metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:66:2:67:33)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(done,__(Sld`(_`)(?:Map),Ls:Literals)),done), k)  : KSentence [label done-intermediate metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:69:2:70:51)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(done,__(Sld`(_`)(?:Map),L:Literal),Sld`(_`)((.).Map)),_~>_(return,L:Literal,reverse`(_`)(.List`{","`}))), k)  : KSentence [label done-return metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:72:2:73:88)"] .
+mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(return,_`(_`)(S:PredicateSymbol,_`,_(T:Term,Ts:Terms)),reverse`(_`)(T1s:Terms)),_~>_(return,_`(_`)(S:PredicateSymbol,Ts:Terms),reverse`(_`)(_`,_(V:K,T1s:Terms)))), k),<_>_</_>(Mgu, __(M:Map,_|->_(T:Term,V:K)), Mgu))  : KSentence [label return-assignvars metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:75:2:77:29)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(return,_`(_`)(S:PredicateSymbol,.List`{","`}),reverse`(_`)(Ts:Terms)),_~>_(reverse`(_`)(Ts:Terms),_`(_`)(S:PredicateSymbol,.List`{","`}))), k)  : KSentence [label return-begin-reverseterms metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:79:2:80:112)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(reverse`(_`)(_`,_(T:Term,Ts:Terms)),_`(_`)(S:PredicateSymbol,T1s:Terms)),_~>_(reverse`(_`)(Ts:Terms),_`(_`)(S:PredicateSymbol,_`,_(T:Term,T1s:Terms)))), k)  : KSentence [label return-reverseterms metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:82:2:83:126)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(reverse`(_`)(.List`{","`}),_`(_`)(S:PredicateSymbol,Ts:Terms)),_`(_`)(S:PredicateSymbol,Ts:Terms)), k)  : KSentence [label return metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:85:2:86:80)"] .
+
+mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(unify`(_`,_`)(_`,_(T:Term,Ts:Terms),_`,_(T1:Term,T1s:Terms)),unify`(_`,_`)(Ts:Terms,T1s:Terms)), k),<_>_</_>(Mgu, _=>_(M:Map,_`[_/_`](M:Map,T:Term,T1:Term)), Mgu)) when _==K_(T:Term,T1:Term) : KSentence [label unify-success metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:90:2:93:16)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(unify`(_`,_`)(_`,_(T:Term,Ts:Terms),_`,_(T1:Term,T1s:Terms)),doesnotunify), k) when _=/=K_(T:Term,T1:Term) : KSentence [label unify-fail metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:95:2:97:17)"] .
+mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(unify`(_`,_`)(.List`{","`},.List`{","`}),Ls:Literals,L:Literal),_~>_(Ls:Literals,__(Sld`(_`)(M:Map),L:Literal))), k),<_>_</_>(Mgu, M:Map, Mgu))  : KSentence [label unify-empty metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:99:2:101:19)"] .
+mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(unify`(_`,_`)(.List`{","`},.List`{","`}),Ls:Literals,L1s:Literals),_~>_(Ls:Literals,__(Sld`(_`)(M:Map),L1s:Literals))), k),<_>_</_>(Mgu, M:Map, Mgu))  : KSentence [label unify-empty metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:103:2:105:19)"] .
+mb rule <_>_</_>(k, _=>_(_~>_(doesnotunify,?:K),false), k)  : KSentence [label doen-not-unify metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:107:2:108:40)"] .
+
+endm 
+mod BOOL-SYNTAX-HOOKS is
+including #BOOL-INTERFACE .
+subsort #Bool < Bool .
+
+
+endm 
+mod BOOL-HOOKS is
+including BOOL-SYNTAX-HOOKS .
+mb rule _=>_(_=/=Bool_(B1:Bool,B2:Bool),notBool_(_==Bool_(B1:Bool,B2:Bool)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:10:3:10:56)"] .
+op notBool_ :  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:12:19:12:92)"] .
+op _andBool_ : Bool  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:13:7:13:90)"] .
+op _andThenBool_ : Bool  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:14:7:14:49)"] .
+op _xorBool_ : Bool  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:15:7:15:44)"] .
+op _orBool_ : Bool  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:16:7:16:87)"] .
+op _orElseBool_ : Bool  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:17:7:17:49)"] .
+op _impliesBool_ : Bool  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:18:7:18:47)"] .
+op _==Bool_ : Bool  Bool -> Bool [metadata "function=() left=() hook=(#BOOL:_==Bool_) location=(/home/k/shared/k/include/builtins/bool.k:20:7:20:65)"] .
+op _=/=Bool_ : Bool  Bool -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/bool.k:21:7:21:44)"] .
+
+mb rule _=>_(_orBool_(true,B:Bool),true)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:23:3:23:34)"] .
+mb rule _=>_(_orBool_(false,B:Bool),B:Bool)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:24:3:24:32)"] .
+mb rule _=>_(_andBool_(true,A:Bool),A:Bool)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:26:3:26:37)"] .
+mb rule _=>_(_andBool_(false,A:Bool),false)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:27:3:27:37)"] .
+mb rule _=>_(_xorBool_(false,A:Bool),A:Bool)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:29:3:29:38)"] .
+mb rule _=>_(_xorBool_(A:Bool,false),A:Bool)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:30:3:30:38)"] .
+mb rule _=>_(_xorBool_(A:Bool,A:Bool),false)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:31:3:31:38)"] .
+mb rule _=>_(notBool_(true),false)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:33:3:33:29)"] .
+mb rule _=>_(notBool_(false),true)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:34:3:34:29)"] .
+mb rule _=>_(_impliesBool_(true,B:Bool),B:Bool)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:36:3:36:36)"] .
+mb rule _=>_(_impliesBool_(false,?:Bool),true)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:37:3:37:40)"] .
+mb rule _=>_(_orElseBool_(true,?:K),true)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:39:3:39:33)"] .
+mb rule _=>_(_orElseBool_(false,K:K),K:K)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:40:3:40:33)"] .
+mb rule _=>_(_andThenBool_(false,?:K),false)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:42:3:42:36)"] .
+mb rule _=>_(_andThenBool_(true,K:K),K:K)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/bool.k:43:3:43:33)"] .
+
+mb rule _`(_`)('#andBool, _`,`,_(_=>_(true,.List{K}),?:List{K}))   : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/bool.k:47:3:47:62)"] .
+mb rule _=>_(_`(_`)('#andBool, true) ,true)  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/bool.k:48:3:48:53)"] .
+mb rule _=>_(_`(_`)('#andBool, _`,`,_(false,?:List{K})) ,false)  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/bool.k:49:3:49:58)"] .
+
+endm 
+ 
+mod INT-SYNTAX-HOOKS is
+including #INT-INTERFACE .
+subsort #Int < Int .
+
+
+endm 
+mod INT-HOOKS is
+including INT-SYNTAX-HOOKS .
+including BOOL-HOOKS .
+op ~Int_ :  Int -> Int [metadata "function=() right=() hook=(#INT:~Int_) location=(/home/k/shared/k/include/builtins/int.k:12:8:12:102)"] .
+op _^Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_^Int_) location=(/home/k/shared/k/include/builtins/int.k:14:8:14:119)"] .
+op _*Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_*Int_) location=(/home/k/shared/k/include/builtins/int.k:16:8:16:111)"] .
+op _/Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_/Int_) location=(/home/k/shared/k/include/builtins/int.k:17:9:17:112)"] .
+op _%Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_%Int_) location=(/home/k/shared/k/include/builtins/int.k:18:9:18:110)"] .
+op _+Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_+Int_) location=(/home/k/shared/k/include/builtins/int.k:20:9:20:128)"] .
+op _-Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_-Int_) location=(/home/k/shared/k/include/builtins/int.k:21:9:21:109)"] .
+op _>>Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_>>Int_) location=(/home/k/shared/k/include/builtins/int.k:23:6:23:110)"] .
+op _<<Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_<<Int_) location=(/home/k/shared/k/include/builtins/int.k:24:9:24:113)"] .
+op _&Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_&Int_) location=(/home/k/shared/k/include/builtins/int.k:26:6:26:107)"] .
+op _xorInt_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_xorInt_) location=(/home/k/shared/k/include/builtins/int.k:28:6:28:115)"] .
+op _|Int_ : Int  Int -> Int [metadata "function=() left=() hook=(#INT:_|Int_) location=(/home/k/shared/k/include/builtins/int.k:30:6:30:106)"] .
+op minInt`(_`,_`) :   Int  Int  -> Int [metadata "function=() hook=(#INT:minInt) location=(/home/k/shared/k/include/builtins/int.k:31:10:31:68)"] .
+
+op _<=Int_ : Int  Int -> Bool [metadata "function=() left=() hook=(#INT:_<=Int_) location=(/home/k/shared/k/include/builtins/int.k:33:19:33:124)"] .
+op _<Int_ : Int  Int -> Bool [metadata "function=() left=() hook=(#INT:_<Int_) location=(/home/k/shared/k/include/builtins/int.k:34:7:34:107)"] .
+op _>=Int_ : Int  Int -> Bool [metadata "function=() left=() hook=(#INT:_>=Int_) location=(/home/k/shared/k/include/builtins/int.k:35:7:35:112)"] .
+op _>Int_ : Int  Int -> Bool [metadata "function=() left=() hook=(#INT:_>Int_) location=(/home/k/shared/k/include/builtins/int.k:36:7:36:107)"] .
+op _==Int_ : Int  Int -> Bool [metadata "function=() left=() hook=(#INT:_==Int_) location=(/home/k/shared/k/include/builtins/int.k:37:7:37:113)"] .
+op _=/=Int_ : Int  Int -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/int.k:38:7:38:97)"] .
+
+mb rule _=>_(_=/=Int_(I1:Int,I2:Int),notBool_(_==Int_(I1:Int,I2:Int)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/int.k:40:3:40:52)"] .
+
+op dummyNat : -> Nat .
+
+mb rule _=>_(_`(_`)(isNat, I:Int) ,_>=Int_(I:Int,0))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/int.k:44:3:44:54)"] .
+op _dividesInt_ : Int  Int -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/int.k:46:19:46:53)"] .
+
+mb rule _=>_(_dividesInt_(I1:Int,I2:Int),_==Int_(_%Int_(I2:Int,I1:Int),0))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/int.k:47:3:47:54)"] .
+op absInt`(_`) :   Int  -> Int [metadata "function=() location=(/home/k/shared/k/include/builtins/int.k:49:18:49:65)"] .
+
+mb rule _=>_(absInt`(_`)(I:Int),I:Int) when _`(_`)(isNat, I:Int)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/int.k:50:3:50:40)"] .
+mb rule _=>_(absInt`(_`)(I:Int),_-Int_(0,I:Int)) when notBool_(_`(_`)(isNat, I:Int) ) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/int.k:51:3:51:56)"] .
+
+endm 
+ 
+ 
+mod FLOAT-SYNTAX-HOOKS is
+including #FLOAT-INTERFACE .
+subsort #Float < Float .
+
+
+endm 
+mod FLOAT-HOOKS is
+including FLOAT-SYNTAX-HOOKS .
+including BOOL-HOOKS .
+including INT-HOOKS .
+including K .
+op _*Float_ : Float  Float -> Float [metadata "function=() left=() hook=(#FLOAT:_*Float_) location=(/home/k/shared/k/include/builtins/float.k:15:8:15:124)"] .
+op _/Float_ : Float  Float -> Float [metadata "function=() left=() hook=(#FLOAT:_/Float_) location=(/home/k/shared/k/include/builtins/float.k:16:8:16:124)"] .
+op _%Float_ : Float  Float -> Float [metadata "function=() left=() hook=(#FLOAT:_%Float_) location=(/home/k/shared/k/include/builtins/float.k:17:8:17:122)"] .
+op _+Float_ : Float  Float -> Float [metadata "function=() left=() hook=(#FLOAT:_+Float_) location=(/home/k/shared/k/include/builtins/float.k:19:8:19:121)"] .
+op _-Float_ : Float  Float -> Float [metadata "function=() left=() hook=(#FLOAT:_-Float_) location=(/home/k/shared/k/include/builtins/float.k:20:8:20:121)"] .
+
+op _<=Float_ : Float  Float -> Bool [metadata "function=() left=() hook=(#FLOAT:_<=Float_) location=(/home/k/shared/k/include/builtins/float.k:23:9:23:127)"] .
+op _<Float_ : Float  Float -> Bool [metadata "function=() left=() hook=(#FLOAT:_<Float_) location=(/home/k/shared/k/include/builtins/float.k:24:7:24:120)"] .
+op _>=Float_ : Float  Float -> Bool [metadata "function=() left=() hook=(#FLOAT:_>=Float_) location=(/home/k/shared/k/include/builtins/float.k:25:7:25:125)"] .
+op _>Float_ : Float  Float -> Bool [metadata "function=() left=() hook=(#FLOAT:_>Float_) location=(/home/k/shared/k/include/builtins/float.k:26:7:26:120)"] .
+op _==Float_ : Float  Float -> Bool [metadata "function=() left=() hook=(#FLOAT:_==Float_) location=(/home/k/shared/k/include/builtins/float.k:27:7:27:123)"] .
+op _=/=Float_ : Float  Float -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/float.k:28:7:28:101)"] .
+
+mb rule _=>_(_=/=Float_(F1:Float,F2:Float),notBool_(_==Float_(F1:Float,F2:Float)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/float.k:30:3:30:60)"] .
+op Int2Float`(_`) :   Int  -> Float [metadata "function=() hook=(#CONVERSION:int2Float) location=(/home/k/shared/k/include/builtins/float.k:32:20:32:128)"] .
+
+op Float2Int`(_`) :   Float  -> Int [metadata "function=() hook=(#CONVERSION:float2Int) location=(/home/k/shared/k/include/builtins/float.k:33:18:33:128)"] .
+
+
+endm 
+mod ID-SYNTAX-HOOKS is
+including #ID-INTERFACE .
+subsort #Id < Id .
+
+
+endm 
+mod ID-HOOKS is
+including ID-SYNTAX-HOOKS .
+including K .
+
+endm 
+ 
+ 
+ 
+mod STRING-SYNTAX-HOOKS is
+including #STRING-INTERFACE .
+subsort #String < String .
+
+
+endm 
+mod STRING-HOOKS is
+including STRING-SYNTAX-HOOKS .
+including INT-HOOKS .
+including FLOAT-HOOKS .
+including ID-HOOKS .
+op _+String_ : String  String -> String [metadata "function=() left=() hook=(#STRING:_+String_) location=(/home/k/shared/k/include/builtins/string.k:17:21:17:129)"] .
+
+op _==String_ : String  String -> Bool [metadata "function=() left=() hook=(#STRING:_==String_) location=(/home/k/shared/k/include/builtins/string.k:19:19:19:86)"] .
+
+op lengthString`(_`) :   String  -> Int [metadata "function=() hook=(#STRING:lengthString) location=(/home/k/shared/k/include/builtins/string.k:21:18:21:108)"] .
+
+op charString`(_`) :   Int  -> String [metadata "function=() hook=(#STRING:charString) location=(/home/k/shared/k/include/builtins/string.k:22:21:22:104)"] .
+
+op asciiString`(_`) :   String  -> Int [metadata "function=() hook=(#STRING:asciiString) location=(/home/k/shared/k/include/builtins/string.k:23:18:23:106)"] .
+
+op substrString`(_`,_`,_`) :   String  Int  Int  -> String [metadata "function=() hook=(#STRING:substrString) location=(/home/k/shared/k/include/builtins/string.k:25:21:25:127)"] .
+
+op findString`(_`,_`,_`) :   String  String  Int  -> Int [metadata "function=() hook=(#STRING:findString) location=(/home/k/shared/k/include/builtins/string.k:26:18:26:121)"] .
+
+op Float2String`(_`) :   Float  -> String [metadata "function=() hook=(#CONVERSION:float2String) location=(/home/k/shared/k/include/builtins/string.k:28:21:28:114)"] .
+
+op String2Float`(_`) :   String  -> Float [metadata "function=() hook=(#CONVERSION:string2Float) location=(/home/k/shared/k/include/builtins/string.k:29:20:29:114)"] .
+
+op String2Int`(_`) :   String  -> Int [metadata "function=() hook=(#CONVERSION:string2Int) location=(/home/k/shared/k/include/builtins/string.k:30:18:30:107)"] .
+
+op Int2String`(_`) :   Int  -> String [metadata "function=() hook=(#CONVERSION:int2String) location=(/home/k/shared/k/include/builtins/string.k:31:21:31:107)"] .
+
+op Id2String`(_`) :   Id  -> String [metadata "function=() hook=(#CONVERSION:id2String) location=(/home/k/shared/k/include/builtins/string.k:32:21:32:104)"] .
+
+op String2Id`(_`) :   String  -> Id [metadata "function=() hook=(#CONVERSION:string2Id) location=(/home/k/shared/k/include/builtins/string.k:33:17:33:104)"] .
+
+op KLabel2String`(_`) :   KLabel  -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:36:21:36:86)"] .
+
+op String2KLabel`(_`) :   String  -> KLabel [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:37:21:37:93)"] .
+
+op replaceAll`(_`,_`,_`) :   String  String  String  -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:39:21:39:81)"] .
+
+op replace`(_`,_`,_`,_`) :   String  String  String  Int  -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:40:21:40:86)"] .
+
+op replaceFirst`(_`,_`,_`) :   String  String  String  -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:41:21:41:83)"] .
+
+op countAllOccurences`(_`,_`) :   String  String  -> Int [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:42:18:42:75)"] .
+
+op trim`(_`) :   String  -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:44:22:44:54)"] .
+
+op ltrim`(_`) :   String  -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:45:21:45:54)"] .
+
+op rtrim`(_`) :   String  -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:46:21:46:54)"] .
+
+op _=/=String_ : String  String -> Bool [metadata "function=() left=() location=(/home/k/shared/k/include/builtins/string.k:48:19:48:66)"] .
+
+mb rule _=>_(_=/=String_(S1:String,S2:String),notBool_(_==String_(S1:String,S2:String)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:49:3:49:64)"] .
+op _<String_ : String  String -> String [metadata "function=() hook=(#STRING:_<String_) location=(/home/k/shared/k/include/builtins/string.k:51:21:51:80)"] .
+op _<=String_ : String  String -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:52:21:52:56)"] .
+op _>String_ : String  String -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:53:21:53:55)"] .
+op _>=String_ : String  String -> String [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:54:21:54:56)"] .
+
+mb rule _=>_(_<=String_(S1:String,S2:String),notBool_(_<String_(S2:String,S1:String)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:56:3:56:62)"] .
+mb rule _=>_(_>String_(S1:String,S2:String),_<String_(S2:String,S1:String))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:57:3:57:52)"] .
+mb rule _=>_(_>=String_(S1:String,S2:String),notBool_(_<String_(S1:String,S2:String)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:58:3:58:62)"] .
+op dummyChar : -> Char .
+
+mb rule _=>_(_`(_`)(isChar, S:String) ,_==Int_(lengthString`(_`)(S:String),1))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/string.k:62:3:62:72)"] .
+op #isWhiteSpace`(_`) :   Char  -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:64:19:64:83)"] .
+
+mb rule _=>_(#isWhiteSpace`(_`)(C:Char),_orBool_(_andBool_(_>=Int_(asciiString`(_`)(C:Char),9),_<=Int_(asciiString`(_`)(C:Char),13)),_==String_(C:Char," ")))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:65:3:67:35)"] .
+op #isDigit`(_`) :   Char  -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:69:19:69:78)"] .
+
+mb rule _=>_(#isDigit`(_`)(C:Char),_andBool_(_>=Int_(asciiString`(_`)(C:Char),asciiString`(_`)("0")),_<=Int_(asciiString`(_`)(C:Char),asciiString`(_`)("9"))))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:70:3:72:59)"] .
+mb rule _=>_(countAllOccurences`(_`,_`)(Source:String,ToCount:String),0) when _<Int_(findString`(_`,_`,_`)(Source:String,ToCount:String,0),0) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:74:3:75:46)"] .
+mb rule _=>_(countAllOccurences`(_`,_`)(Source:String,ToCount:String),_+Int_(1,countAllOccurences`(_`,_`)(substrString`(_`,_`,_`)(Source:String,_+Int_(findString`(_`,_`,_`)(Source:String,ToCount:String,0),lengthString`(_`)(ToCount:String)),lengthString`(_`)(Source:String)),ToCount:String))) when _>=Int_(findString`(_`,_`,_`)(Source:String,ToCount:String,0),0) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:76:3:77:47)"] .
+mb rule _=>_(replaceFirst`(_`,_`,_`)(Source:String,ToReplace:String,Replacement:String),_+String_(_+String_(substrString`(_`,_`,_`)(Source:String,0,findString`(_`,_`,_`)(Source:String,ToReplace:String,0)),Replacement:String),substrString`(_`,_`,_`)(Source:String,_+Int_(findString`(_`,_`,_`)(Source:String,ToReplace:String,0),lengthString`(_`)(ToReplace:String)),lengthString`(_`)(Source:String)))) when _>=Int_(findString`(_`,_`,_`)(Source:String,ToReplace:String,0),0) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:79:3:81:50)"] .
+mb rule _=>_(replaceFirst`(_`,_`,_`)(Source:String,ToReplace:String,Replacement:String),Source:String) when _<Int_(findString`(_`,_`,_`)(Source:String,ToReplace:String,0),0) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:82:3:83:47)"] .
+mb rule _=>_(replace`(_`,_`,_`,_`)(Source:String,ToReplace:String,Replacement:String,Count:Int),_+String_(_+String_(substrString`(_`,_`,_`)(Source:String,0,findString`(_`,_`,_`)(Source:String,ToReplace:String,0)),Replacement:String),replace`(_`,_`,_`,_`)(substrString`(_`,_`,_`)(Source:String,_+Int_(findString`(_`,_`,_`)(Source:String,ToReplace:String,0),lengthString`(_`)(ToReplace:String)),lengthString`(_`)(Source:String)),ToReplace:String,Replacement:String,_-Int_(Count:Int,1)))) when _>Int_(Count:Int,0) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:86:3:89:20)"] .
+mb rule _=>_(replace`(_`,_`,_`,_`)(Source:K,ToReplace:K,Replacement:K,0),Source:K)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:90:3:90:60)"] .
+mb rule _=>_(replaceAll`(_`,_`,_`)(Source:K,ToReplace:K,Replacement:K),replace`(_`,_`,_`,_`)(Source:K,ToReplace:K,Replacement:K,countAllOccurences`(_`,_`)(Source:K,ToReplace:K)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:91:3:91:132)"] .
+mb rule _=>_(ltrim`(_`)(S:String),replaceFirst`(_`,_`,_`)(S:String," ","")) when _==Int_(findString`(_`,_`,_`)(S:String," ",0),0) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:93:3:93:86)"] .
+mb rule _=>_(ltrim`(_`)(S:String),S:String) when _=/=Int_(findString`(_`,_`,_`)(S:String," ",0),0) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:94:3:94:64)"] .
+mb rule _=>_(ltrim`(_`)(""),"")  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:95:3:95:23)"] .
+mb rule _=>_(rtrim`(_`)(S:String),rtrim`(_`)(substrString`(_`,_`,_`)(S:String,0,_-Int_(lengthString`(_`)(S:String),1)))) when _==String_(substrString`(_`,_`,_`)(S:String,_-Int_(lengthString`(_`)(S:String),1),lengthString`(_`)(S:String))," ") : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:97:3:97:150)"] .
+mb rule _=>_(rtrim`(_`)(S:String),S:String) when _=/=String_(substrString`(_`,_`,_`)(S:String,_-Int_(lengthString`(_`)(S:String),1),lengthString`(_`)(S:String))," ") : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:98:3:98:104)"] .
+mb rule _=>_(rtrim`(_`)(""),"")  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:99:3:99:23)"] .
+mb rule _=>_(trim`(_`)(S:K),ltrim`(_`)(rtrim`(_`)(S:K)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:101:3:101:34)"] .
+op #parseToken`(_`,_`) :   String  String  -> K [metadata "function=() location=(/home/k/shared/k/include/builtins/string.k:103:16:103:67)"] .
+
+mb rule _=>_(#parseToken`(_`,_`)("Int",S:String),_/Int_(String2Int`(_`)(_+String_(S:String,"0")),10))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:104:3:104:74)"] .
+mb rule _=>_(#parseToken`(_`,_`)("Float",S:String),String2Float`(_`)(S:String))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:105:3:105:58)"] .
+mb rule _=>_(#parseToken`(_`,_`)("String",S:String),S:String)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:106:3:106:45)"] .
+mb rule _=>_(#parseToken`(_`,_`)("Id",S:String),String2Id`(_`)(S:String))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/string.k:107:3:107:52)"] .
+mb rule _=>_(String2Int`(_`)("00"),0)  : KSentence [metadata "anywhere=() location=(/home/k/shared/k/include/builtins/string.k:109:3:109:41)"] .
+
+endm 
+ 
+mod K-EQUAL-HOOKS is
+including #K-EQUAL-INTERFACE .
+including BOOL-HOOKS .
+op _==K_ : K  K -> Bool [metadata "function=() hook=(#K-EQUAL:_==K_) location=(/home/k/shared/k/include/builtins/k-equal.k:8:9:8:91)"] .
+op _=/=K_ : K  K -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:9:7:9:70)"] .
+
+mb rule _=>_(_=/=K_(K1:K,K2:K),notBool_(_==K_(K1:K,K2:K)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:10:3:10:44)"] .
+op #if_#then_#else_#fi :  Bool  K  K  -> K [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:13:16:13:65)"] .
+
+mb rule _=>_(#if_#then_#else_#fi(true,K:K,?:K),K:K)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:14:3:14:43)"] .
+mb rule _=>_(#if_#then_#else_#fi(false,?:K,K:K),K:K)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:15:3:15:44)"] .
+
+op _<=Set_ : Set  Set -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:18:19:18:48)"] .
+
+mb rule _=>_(_<=Set_(__(SetItem(K:K),Set1:Set),__(SetItem(K:K),Set2:Set)),_<=Set_(Set1:Set,Set2:Set))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:19:3:19:74)"] .
+mb rule _=>_(_<=Set_((.).Set,?:Set),true)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:20:3:20:32)"] .
+mb rule _=>_(_<=Set_(__(SetItem(K:K),Set1:Set),Set2:Set),false) when notBool_(_in_(K:K,Set2:Set)) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:21:3:22:57)"] .
+
+op _==Set_ : Set  Set -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:24:19:24:48)"] .
+
+mb rule _=>_(_==Set_(Set1:Set,Set2:Set),_andBool_(_<=Set_(Set1:Set,Set2:Set),_<=Set_(Set2:Set,Set1:Set)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:25:3:25:78)"] .
+
+op _=/=Set_ : Set  Set -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:28:19:28:48)"] .
+
+mb rule _=>_(_=/=Set_(Set1:Set,Set2:Set),notBool_(_==Set_(Set1:Set,Set2:Set)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:29:3:29:60)"] .
+
+op _<=Map_ : Map  Map -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:32:19:32:48)"] .
+
+mb rule _=>_(_<=Map_(__(MapItem1:MapItem,Map1:Map),__(MapItem1:MapItem,Map2:Map)),_<=Map_(Map1:Map,Map2:Map))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:34:3:36:25)"] .
+mb rule _=>_(_<=Map_((.).Map,?:Map),true)  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/k-equal.k:39:3:39:53)"] .
+mb rule _=>_(_<=Map_(__(_|->_(K1:K,K2:K),Map1:Map),Map2:Map),false) when _orElseBool_(notBool_($hasMapping(Map2:Map,K1:K)),_=/=K_(K2:K,_`(_`)(Map2:Map,K1:K))) : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:41:3:43:41)"] .
+
+op _==Map_ : Map  Map -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:47:19:47:48)"] .
+
+mb rule _=>_(_==Map_(Map1:Map,Map2:Map),_andBool_(_<=Map_(Map1:Map,Map2:Map),_<=Map_(Map2:Map,Map1:Map)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:49:3:51:50)"] .
+
+op _=/=Map_ : Map  Map -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:55:19:55:48)"] .
+
+mb rule _=>_(_=/=Map_(Map1:Map,Map2:Map),notBool_(_==Map_(Map1:Map,Map2:Map)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:56:3:56:60)"] .
+
+op _==List`{K`}_ : List{K}  List{K} -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:60:19:60:60)"] .
+
+mb rule _=>_(_==List`{K`}_(LK1:List{K},LK2:List{K}),_==K_(_`(_`)('dummy, LK1:List{K}) ,_`(_`)('dummy, LK2:List{K}) ))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:61:3:61:72)"] .
+
+op _=/=List`{K`}_ : List{K}  List{K} -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:64:19:64:60)"] .
+
+mb rule _=>_(_=/=List`{K`}_(LK1:List{K},LK2:List{K}),notBool_(_==List`{K`}_(LK1:List{K},LK2:List{K})))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:65:3:65:73)"] .
+
+op _==KLabel_ : KLabel  KLabel -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:68:19:68:56)"] .
+
+mb rule _=>_(_`(_`)('_==KLabel_, _`,`,_(K1:K,K2:K)) ,_==K_(K1:K,K2:K))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/k-equal.k:69:3:69:65)"] .
+
+op _=/=KLabel_ : KLabel  KLabel -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:72:19:72:56)"] .
+
+mb rule _=>_(_=/=KLabel_(Lbl1:KLabel,Lbl2:KLabel),notBool_(_==KLabel_(Lbl1:KLabel,Lbl2:KLabel)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:73:3:73:72)"] .
+
+op _==List_ : List  List -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:76:19:76:48)"] .
+
+mb rule _=>_(_==List_(__(ListItem(K1:K),L1:List),__(ListItem(K2:K),L2:List)),_andBool_(_==K_(K1:K,K2:K),_==List_(L1:List,L2:List)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:77:3:79:38)"] .
+mb rule _=>_(_==List_((.).List,__(ListItem(?:K),?:List)),false)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:80:3:80:50)"] .
+mb rule _=>_(_==List_(__(ListItem(?:K),?:List),(.).List),false)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:81:3:81:50)"] .
+mb rule _=>_(_==List_((.).List,(.).List),true)  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:82:3:82:34)"] .
+
+op _=/=List_ : List  List -> Bool [metadata "function=() location=(/home/k/shared/k/include/builtins/k-equal.k:85:19:85:49)"] .
+
+mb rule _=>_(_=/=List_(L1:List,L2:List),notBool_(_==List_(L1:List,L2:List)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/k-equal.k:86:3:86:56)"] .
+
+endm 
+ 
+ 
+mod TCP-HOOKS is
+including STRING-HOOKS .
+including K-EQUAL-HOOKS .
+including #TCP-INTERFACE .
+op #EOF : -> TCPAnswer .
+subsort String < TCPAnswer .
+op #tcpError`(_`) :   String  -> TCPAnswer [metadata " location=(/home/k/shared/k/include/builtins/tcp.k:7:42:7:68)"] .
+
+mb rule _=>_(_`(_`)(isKResult, #EOF) ,true)  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/tcp.k:8:3:8:52)"] .
+op #tcpRequest`(_`) :   String  -> TCPAnswer [metadata "function=() location=(/home/k/shared/k/include/builtins/tcp.k:10:24:10:86)"] .
+
+mb rule _=>_(#tcpRequest`(_`)(S:String),#checkTCPAnswer`(_`)(##tcpRequest`(_`)(S:String)))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/tcp.k:11:3:11:65)"] .
+op #checkTCPAnswer`(_`) :   String  -> TCPAnswer [metadata "function=() location=(/home/k/shared/k/include/builtins/tcp.k:13:24:13:94)"] .
+
+mb rule _=>_(#checkTCPAnswer`(_`)(S:String),#if_#then_#else_#fi(#isTCPError`(_`)(S:String),#tcpError`(_`)(#retrieveTCPError`(_`)(S:String)),S:String))  : KSentence [metadata " location=(/home/k/shared/k/include/builtins/tcp.k:14:3:15:78)"] .
+mb rule _=>_(#tcpError`(_`)("EOF"),#EOF)  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/builtins/tcp.k:17:3:17:53)"] .
+op ##tcpRequest`(_`) :   String  -> String [metadata "function=() hook=(#TCP:#tcpRequest) location=(/home/k/shared/k/include/builtins/tcp.k:19:21:19:114)"] .
+op #retrieveTCPError`(_`) :   String  -> String [metadata "function=() hook=(#TCP:#retrieveTCPError) location=(/home/k/shared/k/include/builtins/tcp.k:20:21:20:125)"] .
+
+op #isTCPError`(_`) :   String  -> Bool [metadata "function=() hook=(#TCP:#isTCPError) location=(/home/k/shared/k/include/builtins/tcp.k:21:19:21:113)"] .
+
+
+endm 
+ 
+mod RANDOM-HOOKS is
+including #RANDOM-INTERFACE .
+including INT-HOOKS .
+op randomRandom`(_`) :   Int  -> Int [metadata "function=() hook=(#RANDOM:randomRandom) location=(/home/k/shared/k/include/builtins/random.k:7:18:7:83)"] .
+
+
+endm 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+mod BUILTIN-SYNTAX-HOOKS is
+including BOOL-SYNTAX-HOOKS .
+including INT-SYNTAX-HOOKS .
+including FLOAT-SYNTAX-HOOKS .
+including STRING-SYNTAX-HOOKS .
+including ID-SYNTAX-HOOKS .
+
+
+
+endm 
+mod BUILTIN-HOOKS is
+including BOOL-HOOKS .
+including INT-HOOKS .
+including FLOAT-HOOKS .
+including STRING-HOOKS .
+including TCP-HOOKS .
+including K-EQUAL-HOOKS .
+including RANDOM-HOOKS .
+
+
+
+endm 
+ 
+ 
+mod K-LISTK-EXTRAS is
+including K-TECHNIQUE .
+op _inList`{K`}_ : K  List{K} -> Bool [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:10:19:10:51)"] .
+
+op _#inList`{K`}_ : K  List{K} -> Bool [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:11:19:11:52)"] .
+
+mb rule _=>_(_inList`{K`}_(K:K,L:List{K}),_==K_(_#inList`{K`}_(K:K,L:List{K}),true))  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:12:3:13:27)"] .
+mb rule _=>_(_#inList`{K`}_(K:K,_`,`,_(?:List{K},K:K,?:List{K})),true)  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:14:3:15:27)"] .
+
+endm 
+mod K-MAP-EXTRAS is
+including K-TECHNIQUE .
+including K-SET-EXTRAS .
+
+op _`(_`) : Map  K  -> K [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:23:16:23:41)"] .
+
+mb rule _=>_(_`(_`)(__(?:Map,_|->_(K1:K,K2:K)),K1:K),K2:K)  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:24:3:24:58)"] .
+op _`[undef/_`] : Map    List{K}  -> Map [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:26:18:26:61)"] .
+
+op Map`(_|->_`) :   List{K}  List{K}  -> Map [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:28:18:28:66)"] .
+
+mb rule __(Map`(_|->_`)(_`,`,_(_=>_(K1:K,.List{K}),?:List{K}),_`,`,_(_=>_(K2:K,.List{K}),?:K,?:List{K})),_=>_((.).Map,_|->_(K1:K,K2:K)))  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:29:3:29:82)"] .
+mb rule __(Map`(_|->_`)(_`,`,_(_=>_(K1:K,.List{K}),?:List{K}),K2:K),_=>_((.).Map,_|->_(K1:K,K2:K)))  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:30:3:30:60)"] .
+mb rule _=>_(Map`(_|->_`)(.List{K},?:List{K}),(.).Map)  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:31:3:31:32)"] .
+op _`[_/_`] : Map  List{K}  List{K}  -> Map [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:33:18:33:61)"] .
+
+mb rule _`[_/_`](_=>_(M:Map,_`[_/_`](_`[_/_`](M:Map,K2:K,K1:K),K2':K,K1':K)),_`,`,_(_=>_(_`,`,_(K2:K,K2':K),.List{K}),?:List{K}),_`,`,_(_=>_(_`,`,_(K1:K,K1':K),.List{K}),?:List{K}))  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:34:3:35:57)"] .
+mb rule _=>_(_`[_/_`](__(M:Map,_|->_(K1:K,K2:K)),K2':K,K1:K),__(M:Map,_|->_(K1:K,K2':K)))  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:37:3:38:27)"] .
+mb rule _=>_(_`[_/_`](M:Map,K2:K,K1:K),__(M:Map,_|->_(K1:K,K2:K))) when notBool_(_in_(K1:K,keys_(M:Map))) : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:39:3:40:55)"] .
+mb rule _=>_(_`[undef/_`](M:Map,_`,`,_(K:List{K},Kl:List{K})),_`[undef/_`](_`[undef/_`](M:Map,K:List{K}),Kl:List{K})) when _=/=List`{K`}_(Kl:List{K},.List{K}) : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:42:3:42:112)"] .
+mb rule _=>_(_`[undef/_`](M:Map,.List{K}),M:Map)  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:43:3:43:58)"] .
+mb rule _=>_(_`[undef/_`](__(M:Map,_|->_(K:K,?:K)),K:K),M:Map)  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:44:3:44:61)"] .
+op _`[_`] : Map  Map  -> Map [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:46:18:46:77)"] .
+
+mb rule _=>_(_`[_`](M:Map,__(M':Map,_|->_(K1:K,K2:K))),_`[_`](_`[_/_`](M:Map,K2:K,K1:K),M':Map))  : KSentence [metadata "structural=() location=(/home/k/shared/k/include/k-prelude.k:47:3:47:60)"] .
+mb rule _=>_(_`[_`](M:Map,(.).Map),M:Map)  : KSentence [metadata "structural=() location=(/home/k/shared/k/include/k-prelude.k:48:3:48:37)"] .
+
+
+
+
+op keys_ :  Map -> Set [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:55:17:55:39)"] .
+
+mb rule _=>_(keys_((.).Map),(.).Set)  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:57:3:57:19)"] .
+mb rule __(keys_(__(_=>_(_|->_(K:K,?:K),(.).Map),?:Map)),_=>_((.).Set,SetItem(K:K)))  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:58:3:58:53)"] .
+op $hasMapping`(_`,_`) :   Map  K  -> Bool [metadata "function=() maudeop=($hasMapping) location=(/home/k/shared/k/include/k-prelude.k:60:19:60:84)"] .
+
+op #hasMapping`(_`,_`) :   Map  K  -> Bool [metadata "function=() maudeop=(#hasMapping) location=(/home/k/shared/k/include/k-prelude.k:61:19:61:85)"] .
+
+mb rule _=>_($hasMapping(M:Map,K:K),_==K_(#hasMapping(M:Map,K:K),true))  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:62:3:62:82)"] .
+mb rule _=>_(#hasMapping(__(M:Map,_|->_(K:K,?:K)),K:K),true)  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:64:3:64:69)"] .
+
+endm 
+mod K-SET-EXTRAS is
+including K-TECHNIQUE .
+
+op _-Set_ : Set  Set -> Set [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:71:24:71:78)"] .
+
+mb rule _=>_(_-Set_(S1:Set,__(SI1:SetItem,SI2:SetItem,S2:Set)),_-Set_(_-Set_(_-Set_(S1:Set,SI1:SetItem),SI2:SetItem),S2:Set))  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:72:3:73:40)"] .
+mb rule _=>_(_-Set_(S1:Set,(.).Set),S1:Set)  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:74:3:74:27)"] .
+mb rule _=>_(_-Set_(__(SI:SetItem,S:Set),SI:SetItem),S:Set)  : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:75:3:75:39)"] .
+mb rule _=>_(_-Set_(S:Set,SI:SetItem),S:Set) when _==Bool_(_in_(SI:SetItem,S:Set),false) : KSentence [metadata " location=(/home/k/shared/k/include/k-prelude.k:76:3:76:60)"] .
+
+op _in_ : K  Set -> Bool [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:78:18:78:56)"] .
+op _in_ : SetItem  Set -> Bool [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:79:12:79:57)"] .
+op _#inSet_ : K  Set -> Bool [metadata "function=() location=(/home/k/shared/k/include/k-prelude.k:80:12:80:39)"] .
+
+mb rule _=>_(_in_(SetItem(K:K),S:Set),_in_(K:K,S:Set))  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:81:4:81:63)"] .
+mb rule _=>_(_in_(K:K,S:Set),_==K_(_#inSet_(K:K,S:Set),true))  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:82:4:83:28)"] .
+mb rule _=>_(_#inSet_(K:K,__(SetItem(K:K),S:Set)),true)  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:84:4:85:28)"] .
+mb rule _=>_(_-Set_(__(SetItem(K:K),S1:Set),__(SetItem(K:K),S2:Set)),_-Set_(S1:Set,__(SetItem(K:K),S2:Set)))  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:87:4:87:109)"] .
+mb rule _=>_(_-Set_(__(SetItem(K:K),S1:Set),S2:Set),__(SetItem(K:K),_-Set_(S1:Set,S2:Set))) when notBool_(_in_(K:K,S2:Set)) : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:88:4:88:115)"] .
+mb rule _=>_(_-Set_((.).Set,S:Set),(.).Set)  : KSentence [metadata "structural=() snywhere=() location=(/home/k/shared/k/include/k-prelude.k:89:4:89:55)"] .
+
+endm 
+ 
+ 
+ 
+ 
+mod K-DESTRUCTORS is
+op getKLabel_ :  K -> KLabel [metadata " location=(/home/k/shared/k/include/k-prelude.k:139:20:139:33)"] .
+
+mb rule _=>_(getKLabel_(_`(_`)(L:KLabel, ?:List{K}) ),L:KLabel)  : KSentence [metadata "structural=() anywhere=() location=(/home/k/shared/k/include/k-prelude.k:140:3:140:66)"] .
+
+endm 
+ 
+ 
+mod K-BUILTINS is
+op #_ :  K -> KLabel [metadata " location=(/home/k/shared/k/include/k-prelude.k:163:22:163:27)"] .
+
+
+endm 
+ 
+ 
+ 
+ 
+mod SYMBOLIC-K is
+including BUILTIN-HOOKS .
+mb rule _=>_(_`(_`)(isSymbolicK, _`(_`)(KL:KLabel, LK:List{K}) ) ,#if_#then_#else_#fi(_==K_(substrString`(_`,_`,_`)(KLabel2String`(_`)(KL:KLabel),0,5),"'#sym"),true,_`(_`)(isSymbolicK, LK:List{K}) ))  : KSentence [metadata "predicate=() location=(/home/k/shared/k/include/builtins/symbolic-k.k:6:3:14:14)"] .
+mb rule _=>_(_`(_`)(isSymbolicK, _~>_(K1:K,K2:K)) ,_orElseBool_(_`(_`)(isSymbolicK, K1:K) ,_`(_`)(isSymbolicK, K2:K) )) when _andThenBool_(_=/=K_(K1:K,(.).K),_=/=K_(K2:K,(.).K)) : KSentence [metadata "predicate=() location=(/home/k/shared/k/include/builtins/symbolic-k.k:15:3:20:14)"] .
+mb rule _=>_(_`(_`)(isSymbolicK, (.).K) ,false)  : KSentence [metadata "predicate=() location=(/home/k/shared/k/include/builtins/symbolic-k.k:21:3:21:44)"] .
+mb rule _=>_(_`(_`)(isSymbolicK, _`,`,_(K1:K,K2:K,LK:List{K})) ,_orElseBool_(_orElseBool_(_`(_`)(isSymbolicK, K1:K) ,_`(_`)(isSymbolicK, K2:K) ),_`(_`)(isSymbolicK, LK:List{K}) ))  : KSentence [metadata "predicate=() location=(/home/k/shared/k/include/builtins/symbolic-k.k:23:3:27:14)"] .
+mb rule _=>_(_`(_`)(isSymbolicK, .List{K}) ,false)  : KSentence [metadata "predicate=() location=(/home/k/shared/k/include/builtins/symbolic-k.k:28:3:28:50)"] .
+
+endm 
+ 
+mod URIS is
+including BUILTIN-HOOKS .
+
+subsort String < K .
+subsort Int < K .
+sort Float .
+subsort Float < K .
+op #open`(_`) :   String  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:8:16:8:38)"] .
+op #reopen`(_`,_`) :   Int  String  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:9:16:9:48)"] .
+op #close`(_`) :   Int  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:10:16:10:36)"] .
+op #fEof`(_`) :   Int  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:11:16:11:35)"] .
+op #tell`(_`) :   Int  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:12:16:12:35)"] .
+op #seek`(_`,_`) :   Int  Int  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:13:16:13:43)"] .
+op #fPeekByte`(_`) :   Int  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:14:16:14:40)"] .
+op String2Bool`(_`) :   String  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:15:16:15:44)"] .
+op #ioError`(_`) :   String  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:16:16:16:41)"] .
+
+op #fPutByte`(_`,_`) :   Int  Int  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:18:16:18:82)"] .
+op #flush`(_`) :   Int  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:19:16:19:79)"] .
+op #fReadByte`(_`) :   Int  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:20:16:20:83)"] .
+op #fPutBytes`(_`,_`) :   Int  String  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:21:16:21:82)"] .
+
+mb rule _=>_(#open`(_`)(S:String),String2Int`(_`)(#tcpRequest`(_`)(_+String_(_+String_("open#",S:String),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:23:3:23:104)"] .
+mb rule _=>_(#close`(_`)(N:Int),String2DotK`(_`)(#tcpRequest`(_`)(_+String_(_+String_("close#",Int2String`(_`)(N:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:25:3:26:101)"] .
+op String2DotK`(_`) :   String  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:28:16:28:77)"] .
+
+mb rule _=>_(String2DotK`(_`)(S:String),#ioError`(_`)(#retrieveTCPError`(_`)(S:String))) when #isTCPError`(_`)(S:String) : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:29:3:29:104)"] .
+mb rule _=>_(String2DotK`(_`)(S:String),(.).K) when notBool_(#isTCPError`(_`)(S:String)) : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:30:3:30:85)"] .
+mb rule _=>_(String2Bool`(_`)("0"),false)  : KSentence [metadata "anywhere=() location=(/home/k/shared/k/include/modules/uris.k:33:3:33:44)"] .
+mb rule _=>_(String2Bool`(_`)("1"),true)  : KSentence [metadata "anywhere=() location=(/home/k/shared/k/include/modules/uris.k:34:3:34:43)"] .
+mb rule _=>_(#flush`(_`)(N:Int),String2DotK`(_`)(#tcpRequest`(_`)(_+String_(_+String_("flush#",Int2String`(_`)(N:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:36:3:36:116)"] .
+mb rule _=>_(#tell`(_`)(N:Int),String2DotK`(_`)(#tcpRequest`(_`)(_+String_(_+String_("position#",Int2String`(_`)(N:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:38:3:38:118)"] .
+mb rule _=>_(#tell`(_`)(N:Int),String2Int`(_`)(#tcpRequest`(_`)(_+String_(_+String_("tell#",Int2String`(_`)(N:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:40:3:40:113)"] .
+mb rule _=>_(#seek`(_`,_`)(N:Int,P:Int),String2DotK`(_`)(#tcpRequest`(_`)(_+String_(_+String_(_+String_(_+String_("seek#",Int2String`(_`)(N:Int)),"#"),Int2String`(_`)(P:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:42:3:44:88)"] .
+mb rule _=>_(#reopen`(_`,_`)(N:Int,S:String),String2DotK`(_`)(#tcpRequest`(_`)(_+String_(_+String_(_+String_(_+String_("reopen#",Int2String`(_`)(N:Int)),"#"),S:String),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:46:3:48:76)"] .
+op #stdin : -> Int [metadata "function=()"] .
+op #stdout : -> Int [metadata "function=()"] .
+op #stderr : -> Int [metadata "function=()"] .
+
+mb rule _=>_(#stdin,0)  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:53:3:53:19)"] .
+mb rule _=>_(#stdout,1)  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:54:3:54:20)"] .
+mb rule _=>_(#stderr,2)  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:55:3:55:20)"] .
+op #readByte`(`) :    -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:57:16:57:35)"] .
+op #peekByte`(`) :    -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:58:16:58:35)"] .
+op #putByte`(_`) :   Int  -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:59:16:59:38)"] .
+op #eof`(`) :    -> K [metadata " location=(/home/k/shared/k/include/modules/uris.k:60:16:60:30)"] .
+
+mb rule _=>_(#readByte`(`),#fReadByte`(_`)(#stdin))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:61:3:61:62)"] .
+mb rule _=>_(#fReadByte`(_`)(N:Int),#string2Int`(_`)(#tcpRequest`(_`)(_+String_(_+String_("readbyte#",Int2String`(_`)(N:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:63:3:64:102)"] .
+op #string2Int`(_`) :   K  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:66:16:66:73)"] .
+
+mb rule _=>_(#string2Int`(_`)(S:String),String2Int`(_`)(S:String)) when _>=Int_(lengthString`(_`)(S:String),0) : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:68:3:68:96)"] .
+mb rule _=>_(#string2Int`(_`)(#EOF),#EOF)  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:69:3:69:54)"] .
+mb rule _=>_(#putByte`(_`)(B:Int),#fPutByte`(_`,_`)(#stdout,B:Int))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:71:3:71:68)"] .
+mb rule _=>_(#fPutByte`(_`,_`)(N:Int,B:Int),String2DotK`(_`)(#tcpRequest`(_`)(_+String_(_+String_(_+String_(_+String_("writebyte#",Int2String`(_`)(N:Int)),"#"),Int2String`(_`)(B:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:73:3:75:88)"] .
+mb rule _=>_(#fPutBytes`(_`,_`)(N:Int,S:String),String2DotK`(_`)(#tcpRequest`(_`)(_+String_(_+String_(_+String_(_+String_("writebytes#",Int2String`(_`)(N:Int)),"#"),S:String),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:77:3:79:76)"] .
+mb rule _=>_(#peekByte`(`),#fPeekByte`(_`)(#stdin))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:81:3:81:62)"] .
+mb rule _=>_(#fPeekByte`(_`)(N:Int),String2Int`(_`)(#tcpRequest`(_`)(_+String_(_+String_("peek#",Int2String`(_`)(N:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:82:3:83:97)"] .
+mb rule _=>_(#eof`(`),#fEof`(_`)(#stdin))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:85:3:85:52)"] .
+mb rule _=>_(#fEof`(_`)(N:Int),String2Bool`(_`)(#tcpRequest`(_`)(_+String_(_+String_("eof#",Int2String`(_`)(N:Int)),"#"))))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:86:3:87:97)"] .
+op #readChar`(`) :    -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:89:16:89:67)"] .
+
+
+mb rule _=>_(#readChar`(`),#fReadChar`(_`)(#stdin))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:91:3:91:62)"] .
+op #fReadChar`(_`) :   Int  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:93:16:93:73)"] .
+
+mb rule _=>_(#fReadChar`(_`)(N:Int),#charString`(_`)(#fReadByte`(_`)(N:Int)))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:94:3:94:76)"] .
+op #charString`(_`) :   K  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:96:16:96:73)"] .
+
+mb rule _=>_(#charString`(_`)(N:Int),charString`(_`)(N:Int))  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:97:3:97:64)"] .
+mb rule _=>_(#charString`(_`)(#EOF),#EOF)  : KSentence [metadata "function=() anywhere=() location=(/home/k/shared/k/include/modules/uris.k:98:3:98:54)"] .
+op #printChar`(_`) :   K  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:100:16:100:71)"] .
+
+mb rule _=>_(#printChar`(_`)(C:K),#fPrintChar`(_`,_`)(#stdout,C:K)) when _`(_`)(isChar, C:K)  : KSentence [metadata "anywhere=() location=(/home/k/shared/k/include/modules/uris.k:101:3:102:34)"] .
+op #fPrintChar`(_`,_`) :   Int  K  -> K [metadata "function=() location=(/home/k/shared/k/include/modules/uris.k:104:16:104:81)"] .
+
+mb rule _=>_(#fPrintChar`(_`,_`)(N:Int,C:String),#fPutByte`(_`,_`)(N:Int,asciiString`(_`)(C:String))) when _`(_`)(isChar, C:String)  : KSentence [metadata "anywhere=() location=(/home/k/shared/k/include/modules/uris.k:105:3:106:34)"] .
+mb rule __(#buffer`(_`)(_=>_((.).K,Int2String`(_`)(I:Int))),_=>_(ListItem(I:Int),(.).List))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:108:3:108:63)"] .
+mb rule __(#buffer`(_`)(_=>_((.).K,Float2String`(_`)(F:Float))),_=>_(ListItem(F:Float),(.).List))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:109:3:109:67)"] .
+mb rule __(#buffer`(_`)(_=>_((.).K,S:String)),_=>_(ListItem(S:String),(.).List))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:110:3:110:54)"] .
+mb rule __(#buffer`(_`)(_=>_(Buffer:String,_+String_(Buffer:String,Int2String`(_`)(I:Int)))),_=>_(ListItem(I:Int),(.).List))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:112:3:112:89)"] .
+mb rule __(#buffer`(_`)(_=>_(Buffer:String,_+String_(Buffer:String,Float2String`(_`)(F:Float)))),_=>_(ListItem(F:Float),(.).List))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:113:3:113:93)"] .
+mb rule __(#buffer`(_`)(_=>_(Buffer:String,_+String_(Buffer:String,S:String))),_=>_(ListItem(S:String),(.).List))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:114:3:114:80)"] .
+
+mb rule __(#ostream`(_`)(N:Int),_=>_((.).List,__(ListItem(#fPutBytes`(_`,_`)(N:Int,S:String)),#removeCharsUponAck`(_`)(lengthString`(_`)(S:String)))),#buffer`(_`)(S:String)) when _=/=String_(S:String,"") : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:117:3:119:24)"] .
+
+mb rule __(#ostream`(_`)(N:Int),_=>_((.).List,ListItem(#flush`(_`)(N:Int))),#buffer`(_`)(_=>_("",(.).K)))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:121:3:121:72)"] .
+mb rule __(#ostream`(_`)(?:Int),_=>_(ListItem((.).K),(.).List))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:123:3:123:47)"] .
+
+mb rule __(#ostream`(_`)(?:Int),_=>_(#removeCharsUponAck`(_`)(I:Int),(.).List),#buffer`(_`)(_=>_(S:String,substrString`(_`,_`,_`)(S:String,I:Int,lengthString`(_`)(S:String)))))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:125:3:125:117)"] .
+op #removeCharsUponAck`(_`) :   Int  -> List [metadata " location=(/home/k/shared/k/include/modules/uris.k:127:19:127:52)"] .
+
+op #parse`(_`,_`) :   String  K  -> List [metadata " location=(/home/k/shared/k/include/modules/uris.k:129:19:129:72)"] .
+
+
+
+mb rule __(_=>_(#parse`(_`,_`)("#Char",?:K),(.).List),ListItem(C:String)) when _`(_`)(isChar, C:String)  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:140:3:141:24)"] .
+
+mb rule __(#parse`(_`,_`)(S:String,(.).K),_=>_(ListItem(C:String),(.).List)) when _andBool_(_=/=String_(S:String,"#Char"),#isWhiteSpace`(_`)(C:String)) : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:144:3:145:58)"] .
+
+mb rule __(#parse`(_`,_`)(S:String,_=>_((.).K,"")),ListItem(C:String)) when _andBool_(_=/=String_(S:String,"#Char"),notBool_(#isWhiteSpace`(_`)(C:String))) : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:149:3:150:67)"] .
+mb rule __(#parse`(_`,_`)(?:String,_=>_(S:String,_+String_(S:String,C:String))),_=>_(ListItem(C:String),(.).List)) when notBool_(#isWhiteSpace`(_`)(C:String)) : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:152:3:153:35)"] .
+
+mb rule _=>_(__(#parse`(_`,_`)(SType:String,S:String),ListItem(C:String)),#convertToken`(_`,_`)(SType:String,S:String)) when #isWhiteSpace`(_`)(C:String) : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:156:3:157:26)"] .
+mb rule __(_=>_(#parse`(_`,_`)(SType:String,S:String),#convertToken`(_`,_`)(SType:String,S:String)),ListItem(#EOF))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:159:3:159:81)"] .
+op #convertToken`(_`,_`) :   String  String  -> List [metadata " location=(/home/k/shared/k/include/modules/uris.k:161:19:161:60)"] .
+
+mb rule _=>_(#convertToken`(_`,_`)(Type:String,S:String),ListItem(#parseToken`(_`,_`)(Type:String,S:String)))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:162:3:162:77)"] .
+
+op #buffer`(_`) :   K  -> List [metadata " location=(/home/k/shared/k/include/modules/uris.k:170:19:170:73)"] .
+
+
+mb rule __(#parse`(_`,_`)(?:String,?:K),_=>_((.).List,ListItem(substrString`(_`,_`,_`)(S:String,0,1))),#buffer`(_`)(_=>_(S:String,substrString`(_`,_`,_`)(S:String,1,lengthString`(_`)(S:String))))) when _=/=String_(S:String,"") : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:173:3:175:24)"] .
+mb rule __(#buffer`(_`)(_=>_("",(.).K)),#istream`(_`)(?:Int))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:177:3:177:41)"] .
+
+mb rule __(#parse`(_`,_`)(?:String,?:K),_=>_((.).List,ListItem(#fReadChar`(_`)(N:Int))),#buffer`(_`)((.).K),#istream`(_`)(N:Int))  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:180:3:180:89)"] .
+op #istream`(_`) :   Int  -> List [metadata " location=(/home/k/shared/k/include/modules/uris.k:182:19:182:76)"] .
+op #ostream`(_`) :   Int  -> List [metadata " location=(/home/k/shared/k/include/modules/uris.k:183:19:183:77)"] .
+
+op #noIO : -> List .
+
+mb rule _=>_(__(#noIO,#istream`(_`)(?:Int)),(.).List)  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:185:3:185:38)"] .
+mb rule _=>_(__(#ostream`(_`)(?:Int),#noIO),(.).List)  : KSentence [metadata " location=(/home/k/shared/k/include/modules/uris.k:186:3:186:38)"] .
+
+endm 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
