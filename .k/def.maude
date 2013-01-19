@@ -6,58 +6,53 @@ subsort Id < Term .
 sort Int .
 subsort Int < Term .
 
-op _`,_ : K K -> K [prec 120 metadata " hybrid=() location=(/home/k/shared/Datalog_in_K/datalog.k:8:19:8:33)"] .
+op _`,_ : K K -> K [prec 120 metadata " hybrid=() location=(/home/k/shared/datalog-in-k/datalog.k:8:19:8:33)"] .
 op .List`{","`} : -> K .
 
 subsort Id < PredicateSymbol .
 subsort String < PredicateSymbol .
 
-op _`(_`) : PredicateSymbol  Terms  -> Literal [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:13:21:13:50)"] .
+op _`(_`) : PredicateSymbol  Terms  -> Literal [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:13:21:13:50)"] .
 
 
-op _:-_ : Literal  Literals -> Clause [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:17:20:17:41)"] .
+op _:-_ : Literal  Literals -> Clause [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:17:20:17:41)"] .
 
 
-op _. : Clause  -> Stmt [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:21:18:21:28)"] .
-op _._ : Clause  Stmt -> Stmt [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:22:8:22:23)"] .
+op _. : Clause  -> Stmt [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:21:18:21:28)"] .
+op _._ : Clause  Stmt -> Stmt [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:22:8:22:23)"] .
 
-op _? : Literal  -> Query [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:24:19:24:30)"] .
+op _? : Literal  -> Query [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:24:19:24:30)"] .
 
-op __ : Stmt Query -> Program [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:26:21:26:31)"] .
+op _s? : Literals  -> Queries [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:26:21:26:34)"] .
+
+op __ : Stmt Query -> Program [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:28:21:28:31)"] .
 
 
 endm 
 mod DATALOG is
 including DATALOG-SYNTAX .
-op Sld`(_`) :   Map  -> K [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:33:16:33:24)"] .
-op unify`(_`,_`) :   Terms  Terms  -> K [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:33:27:33:46)"] .
+op Sld`(_`) :   Map  -> K [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:35:16:35:24)"] .
+op unify`(_`,_`) :   Terms  Terms  -> K [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:35:27:35:46)"] .
 op does not unify : -> K .
 op done : -> K .
 op return : -> K .
-op reverse`(_`) :   Terms  -> K [metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:33:86:33:100)"] .
+op reverse`(_`) :   Terms  -> K [metadata " location=(/home/k/shared/datalog-in-k/datalog.k:35:86:35:100)"] .
 
 
 
 
-mb rule __(<_>_</_>(k, _=>_(__(_._(C:Clause,S:Stmt),Q:Query),__(S:Stmt,Q:Query)), k),<_>_</_>(__(Store,_=_(ellipses,"both")), _=>_((.).Set,SetItem(C:Clause)), Store))  : KSentence [label Assertion metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:45:2:47:41)"] .
-mb rule __(<_>_</_>(k, _=>_(__(_.(C:Clause),Q:Query),Q:Query), k),<_>_</_>(__(Store,_=_(ellipses,"both")), _=>_((.).Set,SetItem(C:Clause)), Store))  : KSentence [label Assertion-Last-Clause metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:49:2:51:41)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_?(_`(_`)(S:PredicateSymbol,T:Terms)),_~>_(_`(_`)(S:PredicateSymbol,T:Terms),Sld`(_`)((.).Map))), k)  : KSentence [label Query-Begin metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:54:2:55:72)"] .
-mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _~>_(_=>_(_`(_`)(S:PredicateSymbol,T:Terms),_~>_(unify`(_`,_`)(T:Terms,T2:Terms),L:Literals,_`(_`)(S:PredicateSymbol,T:Terms))),Sld`(_`)(?:Map)), k),<_>_</_>(__(Store,_=_(ellipses,"both")), SetItem(_:-_(_`(_`)(S:PredicateSymbol,T2:Terms),L:Literals)), Store))  : KSentence [label Query-Locate-Rule metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:57:2:59:61)"] .
+mb rule __(<_>_</_>(k, _=>_(__(_._(C:Clause,S:Stmt),Q:Query),__(S:Stmt,Q:Query)), k),<_>_</_>(__(Store,_=_(ellipses,"both")), _=>_((.).Set,SetItem(C:Clause)), Store))  : KSentence [label Assertion metadata " location=(/home/k/shared/datalog-in-k/datalog.k:47:2:49:41)"] .
+mb rule __(<_>_</_>(k, _=>_(__(_.(C:Clause),Q:Query),Q:Query), k),<_>_</_>(__(Store,_=_(ellipses,"both")), _=>_((.).Set,SetItem(C:Clause)), Store))  : KSentence [label Assertion-Last-Clause metadata " location=(/home/k/shared/datalog-in-k/datalog.k:51:2:53:41)"] .
+mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_?(_`(_`)(S:PredicateSymbol,T:Terms)),_~>_(unify`(_`,_`)(T:Terms,T2:Terms),_s?(Ls:Literals))), k),<_>_</_>(__(Store,_=_(ellipses,"both")), SetItem(_:-_(_`(_`)(S:PredicateSymbol,T2:Terms),Ls:Literals)), Store))  : KSentence [label Query-Locate-Rule metadata " location=(/home/k/shared/datalog-in-k/datalog.k:55:2:57:62)"] .
 
-mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_`,_(_`(_`)(S:PredicateSymbol,T:Terms),Ls:Literals),_~>_(unify`(_`,_`)(T:Terms,T2:Terms),L:Literals,_`,_(_`(_`)(S:PredicateSymbol,T:Terms),Ls:Literals))), k),<_>_</_>(__(Store,_=_(ellipses,"both")), SetItem(_:-_(_`(_`)(S:PredicateSymbol,T2:Terms),L:Literals)), Store))  : KSentence [label next-rule metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:62:2:64:61)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(.List`{","`},done), k)  : KSentence [label Empty-Goal metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:66:2:67:33)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(done,__(Sld`(_`)(?:Map),Ls:Literals)),done), k)  : KSentence [label done-intermediate metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:69:2:70:51)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(done,__(Sld`(_`)(?:Map),L:Literal),Sld`(_`)((.).Map)),_~>_(return,L:Literal,reverse`(_`)(.List`{","`}))), k)  : KSentence [label done-return metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:72:2:73:88)"] .
-mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(return,_`(_`)(S:PredicateSymbol,_`,_(T:Term,Ts:Terms)),reverse`(_`)(T1s:Terms)),_~>_(return,_`(_`)(S:PredicateSymbol,Ts:Terms),reverse`(_`)(_`,_(V:K,T1s:Terms)))), k),<_>_</_>(Mgu, __(M:Map,_|->_(T:Term,V:K)), Mgu))  : KSentence [label return-assignvars metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:75:2:77:29)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(return,_`(_`)(S:PredicateSymbol,.List`{","`}),reverse`(_`)(Ts:Terms)),_~>_(reverse`(_`)(Ts:Terms),_`(_`)(S:PredicateSymbol,.List`{","`}))), k)  : KSentence [label return-begin-reverseterms metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:79:2:80:112)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(reverse`(_`)(_`,_(T:Term,Ts:Terms)),_`(_`)(S:PredicateSymbol,T1s:Terms)),_~>_(reverse`(_`)(Ts:Terms),_`(_`)(S:PredicateSymbol,_`,_(T:Term,T1s:Terms)))), k)  : KSentence [label return-reverseterms metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:82:2:83:126)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(reverse`(_`)(.List`{","`}),_`(_`)(S:PredicateSymbol,Ts:Terms)),_`(_`)(S:PredicateSymbol,Ts:Terms)), k)  : KSentence [label return metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:85:2:86:80)"] .
 
-mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(unify`(_`,_`)(_`,_(T:Term,Ts:Terms),_`,_(T1:Term,T1s:Terms)),unify`(_`,_`)(Ts:Terms,T1s:Terms)), k),<_>_</_>(Mgu, _=>_(M:Map,_`[_/_`](M:Map,T:Term,T1:Term)), Mgu)) when _==K_(T:Term,T1:Term) : KSentence [label unify-success metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:90:2:93:16)"] .
-mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(unify`(_`,_`)(_`,_(T:Term,Ts:Terms),_`,_(T1:Term,T1s:Terms)),doesnotunify), k) when _=/=K_(T:Term,T1:Term) : KSentence [label unify-fail metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:95:2:97:17)"] .
-mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(unify`(_`,_`)(.List`{","`},.List`{","`}),Ls:Literals,L:Literal),_~>_(Ls:Literals,__(Sld`(_`)(M:Map),L:Literal))), k),<_>_</_>(Mgu, M:Map, Mgu))  : KSentence [label unify-empty metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:99:2:101:19)"] .
-mb rule __(<_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_~>_(unify`(_`,_`)(.List`{","`},.List`{","`}),Ls:Literals,L1s:Literals),_~>_(Ls:Literals,__(Sld`(_`)(M:Map),L1s:Literals))), k),<_>_</_>(Mgu, M:Map, Mgu))  : KSentence [label unify-empty metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:103:2:105:19)"] .
-mb rule <_>_</_>(k, _=>_(_~>_(doesnotunify,?:K),false), k)  : KSentence [label doen-not-unify metadata " location=(/home/k/shared/Datalog_in_K/datalog.k:107:2:108:40)"] .
+
+
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(_s?(_`,_(L:Literal,Ls:Literals)),_~>_(_?(L:Literal),_s?(Ls:Literals))), k)  : KSentence [label next-rule metadata " location=(/home/k/shared/datalog-in-k/datalog.k:61:2:62:56)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(.List`{","`},(.).K), k)  : KSentence [label Empty-queries metadata " location=(/home/k/shared/datalog-in-k/datalog.k:64:2:65:29)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(unify`(_`,_`)(_`,_(T1:Term,T1s:Terms),_`,_(T2:Term,T2s:Terms)),_~>_(unify`(_`,_`)(T1:Term,T2:Term),unify`(_`,_`)(T1s:Terms,T2s:Terms))), k)  : KSentence [label unify-pair metadata " location=(/home/k/shared/datalog-in-k/datalog.k:67:2:68:96)"] .
+mb rule <_>_</_>(__(k,_=_(ellipses,"right")), _=>_(unify`(_`,_`)(.List`{","`},.List`{","`}),(.).K), k)  : KSentence [label unify-empty metadata " location=(/home/k/shared/datalog-in-k/datalog.k:70:2:71:41)"] .
+
 
 endm 
 mod BOOL-SYNTAX-HOOKS is

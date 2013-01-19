@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><T>
-	<term cons="Program16Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,1,3,13)" sort="Program">
-		<term cons="Stmt14Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,1,2,27)" sort="Stmt">
-			<term cons="Clause12Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,1,1,16)" sort="Clause">
-				<term cons="Literal10Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,1,1,12)" sort="Literal">
-					<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,1,1,6)" sort="#Id" value="test1"/>
-					<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,7,1,11)" sort="Terms">
-						<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,7,1,8)" sort="#Id" value="a"/>
-						<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,7,1,11)" sort="Terms">
-							<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,10,1,11)" sort="#Id" value="c"/>
-							<empty filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,7,1,11)" sort="Terms"/>
+	<term cons="Program17Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,1,3,13)" sort="Program">
+		<term cons="Stmt14Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,1,2,27)" sort="Stmt">
+			<term cons="Clause12Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,1,1,16)" sort="Clause">
+				<term cons="Literal10Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,1,1,12)" sort="Literal">
+					<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,1,1,6)" sort="#Id" value="test1"/>
+					<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,7,1,11)" sort="Terms">
+						<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,7,1,8)" sort="#Id" value="a"/>
+						<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,7,1,11)" sort="Terms">
+							<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,10,1,11)" sort="#Id" value="b"/>
+							<empty filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,7,1,11)" sort="Terms"/>
 							
 						</term>
 						
 					</term>
 					
 				</term>
-				<empty filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(1,16,1,16)" sort="Literals"/>
+				<empty filename="/home/k/shared/datalog-in-k/success.datalog" loc="(1,16,1,16)" sort="Literals"/>
 				
 			</term>
-			<term cons="Stmt13Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,1,2,27)" sort="Stmt">
-				<term cons="Clause12Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,1,2,26)" sort="Clause">
-					<term cons="Literal10Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,1,2,11)" sort="Literal">
-						<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,1,2,5)" sort="#Id" value="test"/>
-						<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,6,2,10)" sort="Terms">
-							<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,6,2,7)" sort="#Int" value="1"/>
-							<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,6,2,10)" sort="Terms">
-								<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,9,2,10)" sort="#Id" value="t"/>
-								<empty filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,6,2,10)" sort="Terms"/>
+			<term cons="Stmt13Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,1,2,27)" sort="Stmt">
+				<term cons="Clause12Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,1,2,26)" sort="Clause">
+					<term cons="Literal10Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,1,2,11)" sort="Literal">
+						<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,1,2,5)" sort="#Id" value="test"/>
+						<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,6,2,10)" sort="Terms">
+							<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,6,2,7)" sort="#Int" value="1"/>
+							<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,6,2,10)" sort="Terms">
+								<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,9,2,10)" sort="#Id" value="t"/>
+								<empty filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,6,2,10)" sort="Terms"/>
 								
 							</term>
 							
 						</term>
 						
 					</term>
-					<term cons="Literals1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,15,2,26)" sort="Literals">
-						<term cons="Literal10Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,15,2,26)" sort="Literal">
-							<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,15,2,20)" sort="#Id" value="test1"/>
-							<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,21,2,25)" sort="Terms">
-								<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,21,2,22)" sort="#Id" value="a"/>
-								<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,21,2,25)" sort="Terms">
-									<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,24,2,25)" sort="#Id" value="b"/>
-									<empty filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,21,2,25)" sort="Terms"/>
+					<term cons="Literals1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,15,2,26)" sort="Literals">
+						<term cons="Literal10Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,15,2,26)" sort="Literal">
+							<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,15,2,20)" sort="#Id" value="test1"/>
+							<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,21,2,25)" sort="Terms">
+								<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,21,2,22)" sort="#Id" value="a"/>
+								<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,21,2,25)" sort="Terms">
+									<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,24,2,25)" sort="#Id" value="b"/>
+									<empty filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,21,2,25)" sort="Terms"/>
 									
 								</term>
 								
 							</term>
 							
 						</term>
-						<empty filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(2,15,2,26)" sort="Literals"/>
+						<empty filename="/home/k/shared/datalog-in-k/success.datalog" loc="(2,15,2,26)" sort="Literals"/>
 						
 					</term>
 					
@@ -56,14 +56,14 @@
 			</term>
 			
 		</term>
-		<term cons="Query15Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,1,3,12)" sort="Query">
-			<term cons="Literal10Syn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,1,3,11)" sort="Literal">
-				<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,1,3,5)" sort="#Id" value="test"/>
-				<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,6,3,10)" sort="Terms">
-					<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,6,3,7)" sort="#Int" value="1"/>
-					<term cons="Terms1ListSyn" filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,6,3,10)" sort="Terms">
-						<const filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,9,3,10)" sort="#Id" value="t"/>
-						<empty filename="/home/k/shared/Datalog_in_K/fail.datalog" loc="(3,6,3,10)" sort="Terms"/>
+		<term cons="Query15Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,1,3,12)" sort="Query">
+			<term cons="Literal10Syn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,1,3,11)" sort="Literal">
+				<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,1,3,5)" sort="#Id" value="test"/>
+				<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,6,3,10)" sort="Terms">
+					<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,6,3,7)" sort="#Int" value="1"/>
+					<term cons="Terms1ListSyn" filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,6,3,10)" sort="Terms">
+						<const filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,9,3,10)" sort="#Id" value="t"/>
+						<empty filename="/home/k/shared/datalog-in-k/success.datalog" loc="(3,6,3,10)" sort="Terms"/>
 						
 					</term>
 					

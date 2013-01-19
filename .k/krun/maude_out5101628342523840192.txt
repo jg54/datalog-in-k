@@ -1,8 +1,0 @@
-Maude> rewrites: 627 in 0ms cpu (0ms real) (~ rewrites/second)
-result BagItem: 
-< C > 
- < k > # false(.List{K}) </ k > 
- < N > # 0(.List{K}) </ N > 
- < Store > SetItem('_:-_('_`(_`)(# #id "test"(.List{K}),,'_`,_(# 1(.List{K}),,'_`,_(# #id "t"(.List{K}),,'.List`{"`,"`}(.List{K})))),,'_`,_('_`(_`)(# #id "test1"(.List{K}),,'_`,_(# #id "a"(.List{K}),,'_`,_(# #id "b"(.List{K}),,'.List`{"`,"`}(.List{K})))),,'.List`{"`,"`}(.List{K})))) SetItem('_:-_('_`(_`)(# #id "test1"(.List{K}),,'_`,_(# #id "a"(.List{K}),,'_`,_(# #id "c"(.List{K}),,'.List`{"`,"`}(.List{K})))),,'.List`{"`,"`}(.List{K}))) </ Store > 
- < Mgu > # #id "a"(.List{K}) |-> # #id "a"(.List{K}) # #id "t"(.List{K}) |-> # #id "t"(.List{K}) # 1(.List{K}) |-> # 1(.List{K}) </ Mgu > </ C >
-Maude> Bye.

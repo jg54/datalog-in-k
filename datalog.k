@@ -23,6 +23,8 @@ module DATALOG-SYNTAX
 	
 	syntax Query ::= Literal "?"
 	
+	syntax Queries ::= Literals "s?"
+	
 	syntax Program ::= Stmt Query
 	
 endmodule
@@ -50,19 +52,32 @@ module DATALOG
 		<k> ( C:Clause . Q:Query => Q ) </k>
 		<Store>... . => SetItem(C) ...</Store>
 	
-
-	rule [Query-Begin]:
-		<k> (S:PredicateSymbol ( T:Terms ) ? => S ( T ) ~> Sld(.Map)) ...</k>
-	
 	rule [Query-Locate-Rule]:
-		<k> (S:PredicateSymbol ( T:Terms ) => unify(T, T2) ~> L ~> S ( T )) ~> Sld(_) ...</k>
-		<Store>... SetItem(S (T2:Terms) :- L:Literals) ...</Store>
+		<k> (S:PredicateSymbol ( T:Terms ) ? => unify(T, T2) ~> Ls s?) ...</k>   //fresh variables in T2 and Ls
+		<Store>... SetItem(S (T2:Terms) :- Ls:Literals) ...</Store>								//make a copy of the store and put into a constructor
+																								//iterate through and remove the matches and create new k cells for each
 		
 	//need to append rules here
 	rule [next-rule]:
-		<k> (S:PredicateSymbol ( T:Terms ), Ls:Literals => unify(T, T2) ~> L ~> S:PredicateSymbol ( T:Terms ), Ls:Literals) ...</k>
-		<Store>... SetItem(S (T2:Terms) :- L:Literals) ...</Store>
+		<k> L:Literal, Ls:Literals s? => L ? ~> Ls s? ...</k>
 		
+	rule [Empty-queries]:	
+		<k> .Literals => . ...</k>
+		
+	rule [unify-pair]:
+		<k> unify(T1:Term, T1s:Terms, T2:Term, T2s:Terms) => unify(T1, T2) ~> unify(T1s, T2s) ...</k>
+		
+	rule [unify-empty]:
+		<k> unify(.Terms, .Terms) => . ...</k>
+		
+	unify(X,Y)
+		
+	
+		
+	
+	
+	/*
+	
 	rule [Empty-Goal]:
 		<k> (.Clauses => done) ...</k>
 		
@@ -109,7 +124,7 @@ module DATALOG
 		
 	
 		
-
+	*/
 
 	
 	
