@@ -1,0 +1,8 @@
+load "/home/k/shared/k/bin/maude/lib/k-prelude"
+load "base.maude"
+load "builtins.maude"
+mod DATALOG is 
+  including DATALOG-BASE .
+  including DATALOG-BUILTINS .
+  including K-STRICTNESS-DEFAULTS .
+endm
