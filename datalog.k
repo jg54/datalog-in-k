@@ -8,7 +8,6 @@ module DATALOG-SYNTAX
 	syntax Terms ::= List{Term,","}
 	
 	syntax PredicateSymbol ::= Id
-							|  String
 	
 	syntax Literal ::= PredicateSymbol "(" Terms ")"
 					
@@ -33,9 +32,6 @@ module DATALOG
   imports DATALOG-SYNTAX
   
   syntax K ::= Sld(Map) | unifys(Terms, Terms) | "does not unify" | "done" |"return" |reverse(Terms) | unify(Term, Term) | Find(Query)
-  
-  syntax Unification ::= List ":" Term
-					 | 	 List ":" "?"
 	
   syntax Val ::= String
 			 |	 Int
@@ -48,11 +44,14 @@ module DATALOG
 						<thread multiplicity="*">
 							<k> $PGM:Program </k>
 							<Datacopy> .Set </Datacopy>
+							<Mgu> .Map </Mgu>
+																		//if X |-> Y is in the mgu then id2String(X) <String id2String(Y)
+																		//if X1 |-> Y1 and X2 |-> Y2 then id2string(X1) =/=String id2String(X2)
+							<N> 0 </N>
 						</thread>
                     </threads>
-                    <Database> .Set </Database>
-					<Mgu> .Set </Mgu>
-					<N> 0 </N>
+                    <Database> .Set </Database>									
+					
                 </C>
   
   //Cs:Clauses => C, Cs 
@@ -75,16 +74,37 @@ module DATALOG
 		<Database>D:Set</Database>
 		<Datacopy> . => D </Datacopy>
 
-	rule [Query-Locate-Rule]:
-		<k> Find(S:PredicateSymbol ( T:Terms ) ?) ...</k>							//fresh variables in T2 and Ls
+		
+	rule [Empty-Literals]:
+		<k> .Literals s? => . </k>
+		
+	rule [Find-Locate-Rule]:
+		<k> Find(S:PredicateSymbol ( T:Terms ) ?) ~> X </k>							//fresh variables in T2 and Ls
 		<Datacopy>... SetItem(S (T2:Terms) :- Ls:Literals) => . ...</Datacopy>
-		(. => <thread>... <k> unifys(T, T2) ~> Ls s? </k> <Datacopy> .Set </Datacopy> ...</thread>) //copy the ...
-	/*	
-	rule [Query-No-Rule]:													//how to write this?
-		<k> Find(S:PredicateSymbol ( T:Terms ) ?) => . ...</k>
-		<Datacopy>D:Set</Datacopy>
-		when SetItem(S (T2:Terms) :- Ls:Literals) inSet D ==Bool false
-	*/
+		<Mgu> M </Mgu>
+		<N> N </N>
+		(. => <thread>... <k> unifys(T, freshen(N, T2)) ~> freshen(N, Ls) s? ~> X </k> 
+						  <Datacopy> .Set </Datacopy>
+						  <Mgu> M </Mgu>
+						  <N> N +Int 1 </N> ...</thread>) 
+		
+	
+	syntax K ::= freshen(K, K)
+	
+	rule [Freshen]:
+		freshen(A, B) => B [anywhere]
+		
+	rule [Find-Didnt-Locate-Rule]:
+		<k> Find(S1:PredicateSymbol ( T:Terms ) ?) ...</k>							
+		<Datacopy>... SetItem(S2:PredicateSymbol (T2:Terms) :- Ls:Literals) => . ...</Datacopy>
+		when Id2String(S1) =/=String Id2String(S2)
+
+	rule [Find-Done]:
+		<thread>
+		<k> Find(S1:PredicateSymbol ( T:Terms ) ?) ...</k>	
+		<Datacopy> .Set </Datacopy>
+		...</thread> => .
+	
 	rule [next-rule]:
 		<k> L:Literal, Ls:Literals s? => L ? ~> Ls s? ...</k>
 		
@@ -100,72 +120,51 @@ module DATALOG
 	rule [unify-equal]:
 		<k> unify(V1:Val, V2:Val) => . ...</k>
 		when V1 ==K V2
-	
-	rule [unify-to-val]:
+		
+	rule [unify-to-val-new]:
 		<k> unify(I:Id, V:Val) => . ...</k>
-		<Mgu>... . => SetItem(ListItem(I) : V) ...</Mgu>
+		<Mgu> M:Map(. => I |-> V) </Mgu>
+		when notBool(I in keys(M))
 		
-	rule [unify-to-val]:
-		<k> unify(V:Val, I:Id) => unify(I, V) ...</k>	
-	/*	
-	rule [unify-to-id]:
-		<k> unify(I1:Id, I2:Id) => . ...</k>	
-		<Mgu>... SetItem(ListItem(I) : V) ...</Mgu>
-	*/
+	rule [unify-to-val-known]:
+		<k> unify(I:Id, V:Val) => . ...</k>
+		<Mgu> M:Map(I |-> V) </Mgu>
 		
-	
-	
-	/*
-	
-	unify(X,Y)
-	
-	rule [Empty-Goal]:
-		<k> (.Clauses => done) ...</k>
+	rule [unify-to-val-continue]:
+		<k> unify((I:Id => J), V:Val) ...</k>
+		<Mgu> M:Map(I |-> J:Id) </Mgu>
 		
-	rule [done-intermediate]:
-		<k> (done ~> Sld(_) Ls:Literals => done) ...</k>
+	rule [unify-to-val-wrong-order]:
+		<k> unify(V:Val, I:Id) => unify(I, V) ...</k>
 		
-	rule [done-return]:
-		<k> (done ~> Sld(_) L:Literal ~> Sld(.Map) => return ~> L ~> reverse(.Terms)) ...</k>
+	rule [unify-to-id-wrong-order]:
+		<k> unify(I2:Id, I1:Id) => unify(I1, I2) ...</k>
+		when Id2String(I1) <String Id2String(I2)
 		
-	rule [return-assignvars]:
-		<k> (return ~> S:PredicateSymbol ( T:Term, Ts:Terms ) ~> reverse(T1s:Terms) => return ~> S:PredicateSymbol (Ts) ~> reverse(V, T1s)) ...</k>
-		<Mgu>M:Map (T |-> V)</Mgu>
+	rule [unify-to-id-new]:
+		<k> unify(I1:Id, I2:Id) => . ...</k>
+		<Mgu> M:Map(. => I1 |-> I2) </Mgu>
+		when (Id2String(I1) <String Id2String(I2)) andBool (notBool(I1 in keys(M)))
 		
-	rule [return-begin-reverseterms]:
-		<k> (return ~> S:PredicateSymbol ( .Terms ) ~> reverse(Ts:Terms) => reverse(Ts:Terms) ~> S (.Terms) ) ...</k>
+	rule [unify-to-id-known]:
+		<k> unify(I1:Id, I2:Id) => unify(I2, V) ...</k>
+		<Mgu> M:Map(I1 |-> V:Val) </Mgu>
+		when Id2String(I1) <String Id2String(I2)
 		
-	rule [return-reverseterms]:
-		<k> (reverse(T:Term, Ts:Terms) ~> S:PredicateSymbol (T1s:Terms) => reverse(Ts:Terms) ~> S:PredicateSymbol (T, T1s)) ...</k>
+	rule [unify-to-id-known-in-order]:
+		<k> unify(I1:Id, I2:Id) => unify(I2, I3) ...</k>
+		<Mgu> M:Map(I1 |-> (I3:Id => I2)) </Mgu>
+		when (Id2String(I1) <String Id2String(I2)) andBool (Id2String(I2) <String Id2String(I3))
 		
-	rule [return]:
-		<k> (reverse(.Terms) ~> S:PredicateSymbol (Ts:Terms) => S (Ts:Terms)) ...</k>
-	
-	
-	//unification
-	rule [unify-success]:
-		<k> (unify(T:Term, Ts:Terms, T1:Term, T1s:Terms) => unify(Ts, T1s)) ...</k>
-		<Mgu>M:Map => M[T / T1]</Mgu>
-		when T ==K T1
-		
-	rule [unify-fail]:
-		<k> (unify(T:Term, Ts:Terms, T1:Term, T1s:Terms) => does not unify) ...</k>
-		when T =/=K T1
-		
-	rule [unify-empty]:
-		<k> (unify(.Terms, .Terms) ~> Ls:Literals ~> L:Literal => Ls ~> Sld(M) L) ...</k>
-		<Mgu>M:Map</Mgu>
-		
-	rule [unify-empty]:
-		<k> (unify(.Terms, .Terms) ~> Ls:Literals ~> L1s:Literals => Ls ~> Sld(M) L1s) ...</k>
-		<Mgu>M:Map</Mgu>
-	
-	rule [doen-not-unify]:
-		<k> does not unify ~> _ => false </k>
+	rule [unify-to-id-known-out-of-order]:
+		<k> unify(I1:Id, I3:Id) => unify(I2, I3) ...</k>
+		<Mgu> M:Map(I1 |-> I2:Id) </Mgu>
+		when (Id2String(I1) <String Id2String(I2)) andBool (Id2String(I2) <String Id2String(I3))
 		
 	
 		
-	*/
+	
+	
 
 	
 	

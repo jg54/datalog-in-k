@@ -1,4 +1,4 @@
-load "/home/k/shared/k/bin/maude/lib/k-prelude"
+load "/cygdrive/C/Users/John/Desktop/k/k-latest/k/bin/maude/lib/k-prelude"
 load "base.maude"
 load "builtins.maude"
 mod DATALOG is 
