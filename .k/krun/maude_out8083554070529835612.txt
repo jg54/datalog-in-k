@@ -1,0 +1,20 @@
+Maude> rewrites: 1546 in -21035614270ms cpu (73ms real) (~ rewrites/second)
+result BagItem: 
+< generatedTop > 
+ < C > 
+  < globalout > #ostream(# 1(.KList)) #buffer(.) </ globalout > 
+  < threads > 
+   < thread > 
+    < k > (.).K </ k > 
+    < N > # 1(.KList) </ N > 
+    < out > ListItem(# "test"(.KList)) ListItem(# "("(.KList)) ListItem(# "1"(.KList)) ListItem(# ","(.KList)) ListItem(# "t"(.KList)) ListItem(# ")"(.KList)) </ out > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > # #id "X"(.KList) |-> # "t"(.KList) # #id "Y"(.KList) |-> # 1(.KList) </ Mgu > </ thread > 
+   < thread > 
+    < k > (.).K </ k > 
+    < N > # 1(.KList) </ N > 
+    < out > ListItem(# "test"(.KList)) ListItem(# "("(.KList)) ListItem(# "a"(.KList)) ListItem(# ","(.KList)) ListItem(# "b"(.KList)) ListItem(# ")"(.KList)) </ out > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > # #id "X"(.KList) |-> # "b"(.KList) # #id "Y"(.KList) |-> # "a"(.KList) </ Mgu > </ thread > </ threads > 
+  < Database > SetItem('_:-_('_`(_`)(# #id "test"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# "b"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList))) SetItem('_:-_('_`(_`)(# #id "test"(.KList),,'_`,_(# 1(.KList),,'_`,_(# "t"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList))) </ Database > </ C > </ generatedTop >
+Maude> Bye.
