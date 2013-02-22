@@ -1,0 +1,3 @@
+sibling(X,Y) :- sibling(Y,X).
+sibling("b", "a") :- .
+sibling("a", X)?

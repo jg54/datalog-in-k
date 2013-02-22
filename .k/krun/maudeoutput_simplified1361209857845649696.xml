@@ -1,0 +1,1190 @@
+<?xml version="1.0" encoding="US-ASCII"?><maudeml>
+ <result cpu-time-ms="-19434378321" real-time-ms="29" total-rewrites="2881">
+  <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+   <term op="generatedTop" sort="CellLabel"/>
+   <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+    <term op="C" sort="CellLabel"/>
+    <term op="__" sort="NeBag">
+     <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+      <term op="globalout" sort="CellLabel"/>
+      <term op="__" sort="List">
+       <term op="#ostream`(_`)" sort="List">
+        
+       <term op="#_" sort="KLabel">
+          <term number="1" op="sNat_" sort="#NzNat">
+           <term op="0" sort="#Zero"/>
+          </term>
+         <term op=".KList" sort="KList"/>
+        </term>
+       </term>
+       <term op="#buffer`(_`)" sort="List">
+        <term op="." sort="K"/>
+       </term>
+      </term>
+      <term op="globalout" sort="CellLabel"/>
+     </term>
+     <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+      <term op="threads" sort="CellLabel"/>
+      <term op="__" sort="NeBag">
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          <term op="_~&gt;_" sort="K">
+           
+           <term op="'unify" sort="KLabel">
+            <term op="#_" sort="KLabel">
+               <term op="&quot;b&quot;" sort="#Char"/>
+              <term op=".KList" sort="KList"/>
+            </term>
+            <term op="#_" sort="KLabel">
+               <term op="&quot;a&quot;" sort="#Char"/>
+              <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+           <term op="'unifys" sort="KLabel">
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="&quot;a&quot;" sort="#Char"/>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+              <term op=".KList" sort="KList"/>
+             </term>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;X0&quot;" sort="#String"/>
+                 </term>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+              <term op=".KList" sort="KList"/>
+             </term>
+            </term>
+           </term>
+          <term op="'active_:_:_:_" sort="KLabel">
+            <term op="'_`(_`)" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;sibling&quot;" sort="#String"/>
+                 </term>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="&quot;a&quot;" sort="#Char"/>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                     <term op="#id_" sort="#Id">
+                      <term op="&quot;X0&quot;" sort="#String"/>
+                     </term>
+                    <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                <term op=".KList" sort="KList"/>
+               </term>
+              </term>
+             </term>
+            </term>
+            <term op="'_`(_`)" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;sibling&quot;" sort="#String"/>
+                 </term>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="&quot;b&quot;" sort="#Char"/>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                     <term op="&quot;a&quot;" sort="#Char"/>
+                    <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                <term op=".KList" sort="KList"/>
+               </term>
+              </term>
+             </term>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+            <term op="." sort="K"/>
+           </term>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="." sort="Map"/>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          
+          <term op="'done" sort="KLabel">
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="_|-&gt;_" sort="MapItem">
+           
+           <term op="#_" sort="KLabel">
+             <term op="#id_" sort="#Id">
+              <term op="&quot;X&quot;" sort="#Char"/>
+             </term>
+            <term op=".KList" sort="KList"/>
+           </term>
+          <term op="#_" sort="KLabel">
+             <term op="&quot;b&quot;" sort="#Char"/>
+            <term op=".KList" sort="KList"/>
+           </term>
+          </term>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          
+          <term op="'done" sort="KLabel">
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="_|-&gt;_" sort="MapItem">
+           
+           <term op="#_" sort="KLabel">
+             <term op="#id_" sort="#Id">
+              <term op="&quot;X0&quot;" sort="#String"/>
+             </term>
+            <term op=".KList" sort="KList"/>
+           </term>
+          <term op="#_" sort="KLabel">
+             <term op="&quot;b&quot;" sort="#Char"/>
+            <term op=".KList" sort="KList"/>
+           </term>
+          </term>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          
+          <term op="'done" sort="KLabel">
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="_|-&gt;_" sort="MapItem">
+           
+           <term op="#_" sort="KLabel">
+             <term op="#id_" sort="#Id">
+              <term op="&quot;Y&quot;" sort="#Char"/>
+             </term>
+            <term op=".KList" sort="KList"/>
+           </term>
+          <term op="#_" sort="KLabel">
+             <term op="&quot;b&quot;" sort="#Char"/>
+            <term op=".KList" sort="KList"/>
+           </term>
+          </term>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          
+          <term op="'Root" sort="KLabel">
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+               <term op="#id_" sort="#Id">
+                <term op="&quot;sibling&quot;" sort="#String"/>
+               </term>
+              <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="&quot;a&quot;" sort="#Char"/>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="#id_" sort="#Id">
+                    <term op="&quot;X0&quot;" sort="#String"/>
+                   </term>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="." sort="Map"/>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          
+          <term op="'Root" sort="KLabel">
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+               <term op="#id_" sort="#Id">
+                <term op="&quot;sibling&quot;" sort="#String"/>
+               </term>
+              <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;X0&quot;" sort="#String"/>
+                 </term>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="&quot;a&quot;" sort="#Char"/>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="." sort="Map"/>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          
+          <term op="'active_:_:_:_" sort="KLabel">
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="&quot;a&quot;" sort="#Char"/>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="#id_" sort="#Id">
+                     <term op="&quot;X0&quot;" sort="#String"/>
+                    </term>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;X&quot;" sort="#Char"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="#id_" sort="#Id">
+                     <term op="&quot;Y&quot;" sort="#Char"/>
+                    </term>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="'_`(_`)" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;sibling&quot;" sort="#String"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="#id_" sort="#Id">
+                     <term op="&quot;Y&quot;" sort="#Char"/>
+                    </term>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                      <term op="#id_" sort="#Id">
+                       <term op="&quot;X&quot;" sort="#Char"/>
+                      </term>
+                     <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                <term op=".KList" sort="KList"/>
+               </term>
+              </term>
+             </term>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;X0&quot;" sort="#String"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="&quot;a&quot;" sort="#Char"/>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="SetItem" sort="SetItem">
+           
+          <term op="'_`,_" sort="KLabel">
+            <term op="'_`(_`)" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;sibling&quot;" sort="#String"/>
+                 </term>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="#id_" sort="#Id">
+                    <term op="&quot;X0&quot;" sort="#String"/>
+                   </term>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                     <term op="&quot;a&quot;" sort="#Char"/>
+                    <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                <term op=".KList" sort="KList"/>
+               </term>
+              </term>
+             </term>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="'_`(_`)" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="#id_" sort="#Id">
+                    <term op="&quot;sibling&quot;" sort="#String"/>
+                   </term>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                     <term op="&quot;b&quot;" sort="#Char"/>
+                    <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'_`,_" sort="KLabel">
+                <term op="#_" sort="KLabel">
+                       <term op="&quot;a&quot;" sort="#Char"/>
+                      <term op=".KList" sort="KList"/>
+                </term>
+                <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                 <term op=".KList" sort="KList"/>
+                </term>
+               </term>
+              </term>
+             </term>
+             <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+              <term op=".KList" sort="KList"/>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="_|-&gt;_" sort="MapItem">
+           
+           <term op="#_" sort="KLabel">
+             <term op="#id_" sort="#Id">
+              <term op="&quot;X&quot;" sort="#Char"/>
+             </term>
+            <term op=".KList" sort="KList"/>
+           </term>
+          <term op="#_" sort="KLabel">
+             <term op="&quot;a&quot;" sort="#Char"/>
+            <term op=".KList" sort="KList"/>
+           </term>
+          </term>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+       <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+        <term op="thread" sort="CellLabel"/>
+        <term op="__" sort="NeBag">
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="k" sort="CellLabel"/>
+          
+          <term op="'active_:_:_:_" sort="KLabel">
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;X0&quot;" sort="#String"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="&quot;a&quot;" sort="#Char"/>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;X&quot;" sort="#Char"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="#id_" sort="#Id">
+                     <term op="&quot;Y&quot;" sort="#Char"/>
+                    </term>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="'_`(_`)" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;sibling&quot;" sort="#String"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="#id_" sort="#Id">
+                     <term op="&quot;Y&quot;" sort="#Char"/>
+                    </term>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                      <term op="#id_" sort="#Id">
+                       <term op="&quot;X&quot;" sort="#Char"/>
+                      </term>
+                     <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                <term op=".KList" sort="KList"/>
+               </term>
+              </term>
+             </term>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+           <term op="'_`(_`)" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                  <term op="&quot;a&quot;" sort="#Char"/>
+                 <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                    <term op="#id_" sort="#Id">
+                     <term op="&quot;X0&quot;" sort="#String"/>
+                    </term>
+                   <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+               <term op=".KList" sort="KList"/>
+              </term>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="k" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="N" sort="CellLabel"/>
+          
+          <term op="#_" sort="KLabel">
+            <term op="0" sort="#Zero"/>
+           <term op=".KList" sort="KList"/>
+          </term>
+          <term op="N" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="out" sort="CellLabel"/>
+          <term op="." sort="List"/>
+          <term op="out" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Used" sort="CellLabel"/>
+          <term op="SetItem" sort="SetItem">
+           
+          <term op="'_`,_" sort="KLabel">
+            <term op="'_`(_`)" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                 <term op="#id_" sort="#Id">
+                  <term op="&quot;sibling&quot;" sort="#String"/>
+                 </term>
+                <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'_`,_" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="&quot;a&quot;" sort="#Char"/>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                     <term op="#id_" sort="#Id">
+                      <term op="&quot;X0&quot;" sort="#String"/>
+                     </term>
+                    <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                <term op=".KList" sort="KList"/>
+               </term>
+              </term>
+             </term>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="'_`(_`)" sort="KLabel">
+              <term op="#_" sort="KLabel">
+                   <term op="#id_" sort="#Id">
+                    <term op="&quot;sibling&quot;" sort="#String"/>
+                   </term>
+                  <term op=".KList" sort="KList"/>
+              </term>
+              <term op="'_`,_" sort="KLabel">
+               <term op="#_" sort="KLabel">
+                     <term op="&quot;a&quot;" sort="#Char"/>
+                    <term op=".KList" sort="KList"/>
+               </term>
+               <term op="'_`,_" sort="KLabel">
+                <term op="#_" sort="KLabel">
+                       <term op="&quot;b&quot;" sort="#Char"/>
+                      <term op=".KList" sort="KList"/>
+                </term>
+                <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+                 <term op=".KList" sort="KList"/>
+                </term>
+               </term>
+              </term>
+             </term>
+             <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+              <term op=".KList" sort="KList"/>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="Used" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Datacopy" sort="CellLabel"/>
+          <term op="." sort="Set"/>
+          <term op="Datacopy" sort="CellLabel"/>
+         </term>
+         <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+          <term op="Mgu" sort="CellLabel"/>
+          <term op="_|-&gt;_" sort="MapItem">
+           
+           <term op="#_" sort="KLabel">
+             <term op="#id_" sort="#Id">
+              <term op="&quot;Y&quot;" sort="#Char"/>
+             </term>
+            <term op=".KList" sort="KList"/>
+           </term>
+          <term op="#_" sort="KLabel">
+             <term op="&quot;a&quot;" sort="#Char"/>
+            <term op=".KList" sort="KList"/>
+           </term>
+          </term>
+          <term op="Mgu" sort="CellLabel"/>
+         </term>
+        </term>
+        <term op="thread" sort="CellLabel"/>
+       </term>
+      </term>
+      <term op="threads" sort="CellLabel"/>
+     </term>
+     <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+      <term op="Database" sort="CellLabel"/>
+      <term op="__" sort="NeSet">
+       <term op="SetItem" sort="SetItem">
+        
+       <term op="'_:-_" sort="KLabel">
+         <term op="'_`(_`)" sort="KLabel">
+          <term op="#_" sort="KLabel">
+              <term op="#id_" sort="#Id">
+               <term op="&quot;sibling&quot;" sort="#String"/>
+              </term>
+             <term op=".KList" sort="KList"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="&quot;b&quot;" sort="#Char"/>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="&quot;a&quot;" sort="#Char"/>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+          </term>
+         </term>
+         <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+          <term op=".KList" sort="KList"/>
+         </term>
+        </term>
+       </term>
+       <term op="SetItem" sort="SetItem">
+        
+       <term op="'_:-_" sort="KLabel">
+         <term op="'_`(_`)" sort="KLabel">
+          <term op="#_" sort="KLabel">
+              <term op="#id_" sort="#Id">
+               <term op="&quot;sibling&quot;" sort="#String"/>
+              </term>
+             <term op=".KList" sort="KList"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;X&quot;" sort="#Char"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;Y&quot;" sort="#Char"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+          </term>
+         </term>
+         <term op="'_`,_" sort="KLabel">
+          <term op="'_`(_`)" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;Y&quot;" sort="#Char"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                    <term op="#id_" sort="#Id">
+                     <term op="&quot;X&quot;" sort="#Char"/>
+                    </term>
+                   <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+              <term op=".KList" sort="KList"/>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+           <term op=".KList" sort="KList"/>
+          </term>
+         </term>
+        </term>
+       </term>
+      </term>
+      <term op="Database" sort="CellLabel"/>
+     </term>
+     <term op="&lt;_&gt;_&lt;/_&gt;" sort="BagItem">
+      <term op="Table" sort="CellLabel"/>
+      <term op="__" sort="NeSet">
+       <term op="SetItem" sort="SetItem">
+        
+       <term op="'_`,_" sort="KLabel">
+         <term op="'_`(_`)" sort="KLabel">
+          <term op="#_" sort="KLabel">
+              <term op="#id_" sort="#Id">
+               <term op="&quot;sibling&quot;" sort="#String"/>
+              </term>
+             <term op=".KList" sort="KList"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="&quot;a&quot;" sort="#Char"/>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;X0&quot;" sort="#String"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+          </term>
+         </term>
+         <term op="." sort="K"/>
+        </term>
+       </term>
+       <term op="SetItem" sort="SetItem">
+        
+       <term op="'_`,_" sort="KLabel">
+         <term op="'_`(_`)" sort="KLabel">
+          <term op="#_" sort="KLabel">
+              <term op="#id_" sort="#Id">
+               <term op="&quot;sibling&quot;" sort="#String"/>
+              </term>
+             <term op=".KList" sort="KList"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="&quot;a&quot;" sort="#Char"/>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="#id_" sort="#Id">
+                   <term op="&quot;X0&quot;" sort="#String"/>
+                  </term>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+          </term>
+         </term>
+         <term op="'_`,_" sort="KLabel">
+          <term op="'_`(_`)" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="&quot;a&quot;" sort="#Char"/>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                    <term op="&quot;b&quot;" sort="#Char"/>
+                   <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+              <term op=".KList" sort="KList"/>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+           <term op=".KList" sort="KList"/>
+          </term>
+         </term>
+        </term>
+       </term>
+       <term op="SetItem" sort="SetItem">
+        
+       <term op="'_`,_" sort="KLabel">
+         <term op="'_`(_`)" sort="KLabel">
+          <term op="#_" sort="KLabel">
+              <term op="#id_" sort="#Id">
+               <term op="&quot;sibling&quot;" sort="#String"/>
+              </term>
+             <term op=".KList" sort="KList"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;X0&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="&quot;a&quot;" sort="#Char"/>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+          </term>
+         </term>
+         <term op="." sort="K"/>
+        </term>
+       </term>
+       <term op="SetItem" sort="SetItem">
+        
+       <term op="'_`,_" sort="KLabel">
+         <term op="'_`(_`)" sort="KLabel">
+          <term op="#_" sort="KLabel">
+              <term op="#id_" sort="#Id">
+               <term op="&quot;sibling&quot;" sort="#String"/>
+              </term>
+             <term op=".KList" sort="KList"/>
+          </term>
+          <term op="'_`,_" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;X0&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="&quot;a&quot;" sort="#Char"/>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+             <term op=".KList" sort="KList"/>
+            </term>
+           </term>
+          </term>
+         </term>
+         <term op="'_`,_" sort="KLabel">
+          <term op="'_`(_`)" sort="KLabel">
+           <term op="#_" sort="KLabel">
+                <term op="#id_" sort="#Id">
+                 <term op="&quot;sibling&quot;" sort="#String"/>
+                </term>
+               <term op=".KList" sort="KList"/>
+           </term>
+           <term op="'_`,_" sort="KLabel">
+            <term op="#_" sort="KLabel">
+                  <term op="&quot;b&quot;" sort="#Char"/>
+                 <term op=".KList" sort="KList"/>
+            </term>
+            <term op="'_`,_" sort="KLabel">
+             <term op="#_" sort="KLabel">
+                    <term op="&quot;a&quot;" sort="#Char"/>
+                   <term op=".KList" sort="KList"/>
+             </term>
+             <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+              <term op=".KList" sort="KList"/>
+             </term>
+            </term>
+           </term>
+          </term>
+          <term op="'.List`{&quot;`,&quot;`}" sort="KLabel">
+           <term op=".KList" sort="KList"/>
+          </term>
+         </term>
+        </term>
+       </term>
+      </term>
+      <term op="Table" sort="CellLabel"/>
+     </term>
+    </term>
+    <term op="C" sort="CellLabel"/>
+   </term>
+   <term op="generatedTop" sort="CellLabel"/>
+  </term>
+ </result>
+</maudeml>

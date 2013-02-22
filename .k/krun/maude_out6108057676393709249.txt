@@ -1,0 +1,65 @@
+Maude> rewrites: 2881 in -19434378321ms cpu (29ms real) (~ rewrites/second)
+result BagItem: 
+< generatedTop > 
+ < C > 
+  < globalout > #ostream(# 1(.KList)) #buffer(.) </ globalout > 
+  < threads > 
+   < thread > 
+    < k > 'unify(# "b"(.KList),,# "a"(.KList)) ~> 'unifys('_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList))) ~> 'active_:_:_:_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList)))),,'_`(_`)(# #id "sibling"(.KList),,'_`,_(# "b"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList),,.) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > (.).Set </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > (.).Map </ Mgu > </ thread > 
+   < thread > 
+    < k > 'done(.KList) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > (.).Set </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > # #id "X"(.KList) |-> # "b"(.KList) </ Mgu > </ thread > 
+   < thread > 
+    < k > 'done(.KList) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > (.).Set </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > # #id "X0"(.KList) |-> # "b"(.KList) </ Mgu > </ thread > 
+   < thread > 
+    < k > 'done(.KList) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > (.).Set </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > # #id "Y"(.KList) |-> # "b"(.KList) </ Mgu > </ thread > 
+   < thread > 
+    < k > 'Root('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList))))) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > (.).Set </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > (.).Map </ Mgu > </ thread > 
+   < thread > 
+    < k > 'Root('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X0"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList))))) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > (.).Set </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > (.).Map </ Mgu > </ thread > 
+   < thread > 
+    < k > 'active_:_:_:_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList)))),,'_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X"(.KList),,'_`,_(# #id "Y"(.KList),,'.List`{"`,"`}(.KList)))),,'_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "Y"(.KList),,'_`,_(# #id "X"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList)),,'_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X0"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList))))) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > SetItem('_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X0"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,'_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "b"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList)))) </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > # #id "X"(.KList) |-> # "a"(.KList) </ Mgu > </ thread > 
+   < thread > 
+    < k > 'active_:_:_:_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X0"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,'_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X"(.KList),,'_`,_(# #id "Y"(.KList),,'.List`{"`,"`}(.KList)))),,'_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "Y"(.KList),,'_`,_(# #id "X"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList)),,'_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList))))) </ k > 
+    < N > # 0(.KList) </ N > 
+    < out > (.).List </ out > 
+    < Used > SetItem('_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList)))),,'_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# "b"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList)))) </ Used > 
+    < Datacopy > (.).Set </ Datacopy > 
+    < Mgu > # #id "Y"(.KList) |-> # "a"(.KList) </ Mgu > </ thread > </ threads > 
+  < Database > SetItem('_:-_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "b"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList))) SetItem('_:-_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X"(.KList),,'_`,_(# #id "Y"(.KList),,'.List`{"`,"`}(.KList)))),,'_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "Y"(.KList),,'_`,_(# #id "X"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList)))) </ Database > 
+  < Table > SetItem('_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList)))),,.)) SetItem('_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# #id "X0"(.KList),,'.List`{"`,"`}(.KList)))),,'_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "a"(.KList),,'_`,_(# "b"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList)))) SetItem('_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X0"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,.)) SetItem('_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# #id "X0"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,'_`,_('_`(_`)(# #id "sibling"(.KList),,'_`,_(# "b"(.KList),,'_`,_(# "a"(.KList),,'.List`{"`,"`}(.KList)))),,'.List`{"`,"`}(.KList)))) </ Table > </ C > </ generatedTop >
+Maude> Bye.
