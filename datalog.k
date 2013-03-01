@@ -1,6 +1,6 @@
 
-
 module DATALOG-SYNTAX
+
 	syntax Term ::= String
 				|	Id
 				|   Int
@@ -31,14 +31,17 @@ endmodule
 module DATALOG
   imports DATALOG-SYNTAX
   
-  syntax K ::= unifys(Terms, Terms) | "does not unify" | unify(Term, Term) | Root(Literal) | print(K) | "active" Literal ":" Literal ":" Literals ":" Literal 	//active" Literal ":" clause":" Normalize(Literals)
-			|NormalizeL(Literal)	| Normalize( Int, Map, Terms ) | Sub(Terms, Map) | SubT(Term, Map) | SubLs(Literals, Map) | SubL(Literal, Map)
+  syntax MaybeLiteral ::= Some(Literal) | "None"
+  
+  syntax K ::= unifys(Terms, Terms) | "does not unify" | unify(Term, Term) 
+			| Root(Clauses, Literal) | print(K) | "active" Literal ":" Clause ":" MaybeLiteral
+			|NormalizeL(Literal)	| Normalize( Int, Map, Terms ) | NormalizeFL(Literals) 
+			| Sub(Terms, Map) | SubT(Term, Map) | SubLs(Literals, Map) | SubL(Literal, Map) 
+			| "done" | "applySub" | Mgu(Map) //if Map contains(X |-> Y) then X <String Y
+			| NormalizeMaybe(MaybeLiteral) | SubMaybe(MaybeLiteral, Map) | First(Literals)
 	
   syntax Val ::= String
 			 |	 Int
-			 
-  
-  //syntax Maps ::= List{Map,","}
   
   
 	configuration <C>
@@ -46,90 +49,93 @@ module DATALOG
 						<thread multiplicity="*">
 							<k> $PGM:Program </k>
 							<Used> .Set </Used>
-							<Datacopy> .Set </Datacopy>  //remove make database a list copy list into k cell
-							<Mgu> .Map </Mgu>
 						</thread>
                     </threads>
-                    <Database> .Set </Database>	
+                    <Database> .Clauses </Database>	
 					<Table> .Set </Table>		
 					<printer> .K </printer>
-					<originalQuery> .K <originalQuery>
+					<originalQuery> .K </originalQuery>
 					<globalout stream="stdout"> .List </globalout>
 					
                 </C>
 				
 	rule [Assertion]:
 		<k> ( C:Clause . S:Stmt Q:Query => S Q)</k>
-		<Database>... . => SetItem(C) ...</Database>
+		<Database> D:Clauses => C, D </Database>
 		
 	rule [Assertion-Last-Clause]:
 		<k> ( C:Clause . Q:Query => Q ) </k>
-		<Database>... . => SetItem(C) ...</Database>		
+		<Database> D:Clauses => C, D </Database>		
 	
 	rule [Query-Copy-Data]:
-		<k> (S:PredicateSymbol ( T:Terms ) ? => Root(S ( Normalize(0, .Map, T) ) )) ...</k>   
-		<Datacopy> . => D </Datacopy>
-		<Database>D:Set</Database>
+		<k> (S:PredicateSymbol ( T:Terms ) ? => Root(D, S ( Normalize(0, .Map, T) ) )) ...</k> 		
+		<Database>D:Clauses</Database>
 		<Table> . => SetItem( S ( Normalize(0, .Map, T) ), . ) </Table>
+		<originalQuery> . => S:PredicateSymbol ( T:Terms ) </originalQuery>
 		
 	
-	rule [New-Root]:
-		<k> Root(S:PredicateSymbol ( T:Terms ) ) </k>
-		<Datacopy>... SetItem(S (T2:Terms) :- L:Literal, Ls:Literals) => . ...</Datacopy>   
-		(. => <thread>... <k> unifys(T2, T) ~> active S ( T ) : S ( T2 ) : L, Ls : NormalizeL(L) </k> 
+	rule [New-Root-In-List]:
+		<k> Root(S1:PredicateSymbol (T2:Terms) :- Ls:Literals, D:Clauses, S:PredicateSymbol ( T:Terms ) ) => Root(D:Clauses, S:PredicateSymbol ( T:Terms ) ) </k>  
+		(. => <thread>... <k> unifys(T2, T) ~> applySub ~> active S ( T ) : S ( T2 ) :- Ls : First(Ls) </k> 
 						  <Used> .Set </Used>
-						  <Datacopy> .Set </Datacopy>
-						  <Mgu> .Map </Mgu>
 						  ...</thread>) 
-						  
-	rule [New-Root]:
-		<k> Root(S:PredicateSymbol ( Ts:Terms ) ) </k>
-		<Datacopy>... SetItem(S (T2s:Terms) :- .Literals) => . ...</Datacopy>
-		(. => <thread>... <k> unifys(T2s, Ts) ~> active S ( Ts ) : S ( T2s ) : .Literals : . </k> 
-						  <Used> .Set </Used>
-						  <Datacopy> .Set </Datacopy>
-						  <Mgu> .Map </Mgu>
-						  ...</thread>) 
+		when (Id2String(S1) ==String Id2String(S))
+		
+	rule [New-Root-Not-In-List]:
+		<k> Root(S1:PredicateSymbol (T2:Terms) :- Ls:Literals, D:Clauses, S:PredicateSymbol ( T:Terms ) ) => Root(D:Clauses, S:PredicateSymbol ( T:Terms ) ) </k> 
+		when notBool(Id2String(S1) ==String Id2String(S))
+		
+	rule [New-Root-Empty]:
+		<thread>
+		<k> Root(.Clauses, L:Literal) ...</k>
+		...</thread> => .	
 	
 	rule [Active-Node-In-Table]:
-		<k> active R : H : S:PredicateSymbol ( Ts:Terms ), L, Ls : S1:PredicateSymbol ( T1:Terms ) </k>
+		<k> active R : H :- S:PredicateSymbol ( Ts:Terms ), Ls : Some(S1:PredicateSymbol ( T1:Terms )) </k>
 		<Used> U:Set => U SetItem(S1 ( T1 ), S2 ( T2 ) )</Used>
 		<Table>... SetItem( S1 ( T1 ), S2:PredicateSymbol ( T2:Terms ) ) ...</Table>
-		<Mgu> M:Map </Mgu>
-		(. => <thread>... <k>unifys(Sub(Ts, M), T2) ~> applySub ~> active R : SubL(H, M): SubLs(L, Ls, M) : NormalizeL(L) </k>  //added applySub
-			<Mgu> .Map </Mgu> ...</thread>)
+		(. => <thread>... <k>unifys(Ts, T2) ~> applySub ~> active R : H :- Ls : First(Ls) </k>
+			...</thread>)
 		when notBool (S1 ( T1 ), S2 ( T2 )) in U
 		
-	rule [Active-Node-In-Table]:
-		<k> active R : H : S:PredicateSymbol ( Ts:Terms ), .Literals : S1:PredicateSymbol ( T1:Terms ) </k>
-		<Used> U:Set => U SetItem(S1 ( T1 ), S2:PredicateSymbol ( T2:Terms ) )</Used>
-		<Table>... SetItem( S1 ( T1 ), S2 ( T2 ) ) ...</Table>
-		<Mgu> M:Map </Mgu>
-		(. => <thread>... <k>unifys(Sub(Ts, M), T2) ~> active R : SubL(H, M): .Literals : . </k>
-			<Mgu> .Map </Mgu> ...</thread>)
-		when notBool (S1 ( T1 ), S2 ( T2 )) in U
+	rule [First-Empty]:
+		First(.Literals) => None [anywhere]
 		
+	rule [First-Not-Empty]:
+		First(L:Literal, Ls:Literals) => Some(L) [anywhere]
+
 	rule [Active-Node-Not-In-Table]:
-		<k> active R : H : L, Ls : S:PredicateSymbol ( Ts:Terms ) </k>
+		<k> active R : H :- Ls : Some(S:PredicateSymbol ( Ts:Terms )) </k>
 		<Table> T:Set => T SetItem( S ( Ts ), . ) </Table>
-		<Database>D:Set</Database>
-		(. => <thread>... <k> Root(S ( Ts ))</k>
-			<Datacopy> D </Datacopy>
-			<Mgu> .Map </Mgu> ...</thread>)
+		<Database>D:Clauses</Database>
+		(. => <thread>... <k> Root(D, S ( Ts ))</k>
+			...</thread>)
 		when notBool (S ( Ts ), .)  in T
 		
 	rule [Add-Answer-to-Table]:
-		<k> active S:PredicateSymbol ( Ts:Terms ) : S1:PredicateSymbol ( T1s:Terms ) : .Literals : . => done</k>
-		<Mgu> M:Map </Mgu>
-		<Table>... . => SetItem(S ( Normalize(0, .Map, Ts) ), S1 ( Sub(T1s, M) )) ...</Table>
+		(<thread>
+		<k> active S:PredicateSymbol ( Ts:Terms ) : S1:PredicateSymbol ( T1s:Terms ) :- .Literals : None </k> 
+		...</thread> => .)
+		<Table>... . => SetItem(S ( Normalize(0, .Map, Ts) ), S1 ( T1s )) ...</Table>
+		<printer> X => X ~> print(S1 ( T1s )) </printer>
+		
 	
 	syntax K ::= resolveAmbiguityLiterals(Literals) | resolveAmbiguityTerms(Terms)
 	rule resolveAmbiguityLiterals(X) => X [anywhere]
 	rule resolveAmbiguityTerms(X) => X [anywhere]
 	
+	rule [Apply-Substitution]:
+		<k> Mgu(M:Map) ~> applySub ~> active S1:PredicateSymbol ( T1:Terms ) : S2:PredicateSymbol ( T2:Terms ) :- Ls:Literals : ML:MaybeLiteral
+			=> active S1 ( T1 ) : S1 ( Sub(T2, M)) :- SubLs(Ls, M) : NormalizeMaybe(SubMaybe(ML, M)) </k>
+	
+	rule NormalizeMaybe(Some(L)) => Some(NormalizeL(L)) [anywhere]
+	rule NormalizeMaybe(None) => None [anywhere]
+	
 	rule [Normalize-Literal]:
-		<k> active L1:Literal : L2:Literal : Ls:Literals : (NormalizeL( S:PredicateSymbol ( T:Terms )) => S ( Normalize( 0, .Map, Sub(T, M)) )) </k>
-		<Mgu> M:Map </Mgu> 
+		NormalizeL( S:PredicateSymbol ( T:Terms )) => S ( Normalize( 0, .Map, T) ) [anywhere]
+	
+	rule SubMaybe(Some(L), M:Map) => Some(SubL(L, M)) [anywhere]
+	rule SubMaybe(None, M) => None [anywhere]
 	
 	rule [Sub-Literals]:
 		SubLs(L:Literal, Ls:Literals, M:Map) => resolveAmbiguityLiterals(SubL(L, M), SubLs(Ls, M)) [anywhere]
@@ -147,7 +153,7 @@ module DATALOG
 		Sub(.Terms, M:Map) => .Terms [anywhere]
 		
 	rule [Sub-Id-In-Map]:
-		 SubT(I:Id, M:Map(I |-> X)) => X  [anywhere]
+		SubT(I:Id, M:Map(I |-> X)) => X  [anywhere]
 
 		
 	rule [Sub-Id-not-In-Map]:
@@ -172,34 +178,92 @@ module DATALOG
 		Normalize(C:Int, M:Map, .Terms) => .Terms [anywhere]
 	
 	
+	rule [unify-begin]:
+		<k> unifys(T1s:Terms, T2s:Terms) => Mgu(.Map) ~> unifys(T1s, T2s) ...</k> 
+	
 	rule [unify-pair]:
-		<k> unifys(T1:Term, T1s:Terms, T2:Term, T2s:Terms) => unify(T1, T2) ~> unifys(T1s, T2s) ...</k> 
+		<k> Mgu(M:Map) ~> unifys(T1:Term, T1s:Terms, T2:Term, T2s:Terms) => Mgu(M) ~> unify(T1, T2) ~> unifys(T1s, T2s) ...</k> 
 		
 	rule [unify-empty]:
-		<k> unifys(.Terms, .Terms) => . ...</k>
+		<k> Mgu(M:Map) ~> unifys(.Terms, .Terms) => Mgu(M) ...</k>
 	
 	rule [unify-equal]:
-		<k> unify(V1:Val, V2:Val) => . ...</k>
-		when V1 ==K V2
+		<k> Mgu(M:Map) ~> unify(V1:Val, V1) => Mgu(M) ...</k>
 		
 	rule [unify-to-val-new]:
-		<k> unify(I:Id, V:Val) => . ...</k>
-		<Mgu> M:Map(. => I |-> V) </Mgu>
+		<k> Mgu(M:Map) ~> unify(I:Id, V:Val) => Mgu(M(I |-> V))  ...</k>
 		when notBool(I in keys(M))
 		
 	rule [unify-to-val-known]:
-		<k> unify(I:Id, V:Val) => . ...</k>
-		<Mgu> M:Map(I |-> V) </Mgu>
+		<k> Mgu(M:Map(I |-> V)) ~> unify(I:Id, V:Val) => Mgu(M(I |-> V)) ...</k>
 		
 	rule [unify-to-val-continue]:
-		<k> unify((I:Id => J), V:Val) ...</k>
-		<Mgu> M:Map(I |-> J:Id) </Mgu>
+		<k> Mgu(M:Map(I |->J:Id)) ~> unify((I:Id => J), V:Val) ...</k>
 		
 	rule [unify-to-val-wrong-order]:
-		<k> unify(V:Val, I:Id) => unify(I, V) ...</k>
+		<k> Mgu(M:Map) ~> unify(V:Val, I:Id) => Mgu(M) ~> unify(I, V) ...</k>
 		
-	rule [Unify-to-Id]:
-		<k> unify(I1:Id, I2:Id) => . ...</k>
+	rule [Unify-to-Id-Same]:
+		<k> Mgu(M:Map) ~> unify(I1:Id, I1) => Mgu(M) ...</k>
+		
+	rule [Unify-to-Id-Out-of-Order]:
+		<k> Mgu(M:Map) ~> (unify(I2:Id, I1:Id) => unify(I1, I2)) ...</k>
+		when Id2String(I1) <String Id2String(I2)
+
+	rule [Unify-to-Id-New]:
+		<k> Mgu(M:Map) ~> unify(I1:Id, I2:Id) => Mgu(M(I1 |-> I2)) ...</k>
+		when (Id2String(I1) <String Id2String(I2)) andBool (notBool(I1 in keys(M)))
+	
+	rule [Unify-to-Id-In-Order]:
+		<k> Mgu(M:Map(I1:Id |-> I2:Id)) ~> (unify(I1, I3:Id) => unify(I2, I3)) ...</k>
+		when (Id2String(I1) <String Id2String(I2)) 
+		andBool (Id2String(I2) <String Id2String(I3)) 
+		
+	rule [Unify-to-Id-In-Order]:
+		<k> Mgu(M:Map(I1:Id |-> I3:Id)) ~> unify(I1, I2:Id) => Mgu(M(I1 |-> I2)) ~> unify(I2, I3) ...</k>
+		when (Id2String(I1) <String Id2String(I2)) 
+		andBool (Id2String(I2) <String Id2String(I3)) 
+		
+	
+	
+	rule [print]:
+		<printer> print( S:PredicateSymbol ( Ts:Terms ) )=> print(S) ~> print("(") ~> print(Ts) ~> print(")") ...</printer>
+		<originalQuery> S ( T2s:Terms ) </originalQuery>
+		when (lengthTList(Ts) ==Int lengthTList(T2s))
+		
+	rule [print]:
+		<printer> print( S:PredicateSymbol ( Ts:Terms ) )=> . ...</printer>
+		<originalQuery> S1:PredicateSymbol ( T2s:Terms ) </originalQuery>
+		when notBool((Id2String(S) ==String Id2String(S1)) andBool (lengthTList(Ts) ==Int lengthTList(T2s)))
+	
+	rule 
+		<printer> print( I:Id ) => . ...</printer>
+		<globalout>... (. => ListItem(Id2String(I))) </globalout>
+		
+	rule 
+		<printer> print( .Terms ) => . ...</printer>
+		
+	rule
+		<printer> print( T:Term, .Terms) => print(T) ...</printer>
+		
+	rule
+		<printer> print( T:Term, Ts:Terms) => print(T) ~> print(",") ~> print(Ts) ...</printer>
+		when notBool(lengthTList(Ts) ==Int 0)
+		
+	rule
+		<printer> print( S:String ) => . ...</printer>
+		<globalout>... (. => ListItem(S)) </globalout>
+	
+	rule
+		<printer> print( I:Int ) => . ...</printer>
+		<globalout>... (. => ListItem(Int2String(I))) </globalout>
+	
+	
+	syntax Int ::= "lengthTList" Terms [function]
+
+   rule lengthTList ( T:Term, Ts:Terms ) => 1 +Int lengthTList Ts [structural, anywhere]
+   rule lengthTList .Terms => 0 [structural, anywhere]
+	
 		
   
 endmodule

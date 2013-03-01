@@ -1,69 +1,177 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><T>
-	<term cons="Program1435Syn" filename="finish_test.datalog" loc="(1,1,3,19)" sort="Program">
-		<term cons="Stmt1432Syn" filename="finish_test.datalog" loc="(1,1,2,23)" sort="Stmt">
-			<term cons="Clause1429Syn" filename="finish_test.datalog" loc="(1,1,1,29)" sort="Clause">
-				<term cons="Literal1428Syn" filename="finish_test.datalog" loc="(1,1,1,13)" sort="Literal">
-					<const filename="finish_test.datalog" loc="(1,1,1,8)" sort="#Id" value="sibling"/>
-					<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(1,9,1,12)" sort="Terms">
-						<const filename="finish_test.datalog" loc="(1,9,1,10)" sort="#Id" value="X"/>
-						<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(1,9,1,12)" sort="Terms">
-							<const filename="finish_test.datalog" loc="(1,11,1,12)" sort="#Id" value="Y"/>
-							<empty filename="finish_test.datalog" loc="(1,9,1,12)" sort="Terms"/>
+	<term cons="Program1435Syn" filename="grandfather.datalog" loc="(1,1,6,23)" sort="Program">
+		<term cons="Stmt1432Syn" filename="grandfather.datalog" loc="(1,1,5,22)" sort="Stmt">
+			<term cons="Clause1429Syn" filename="grandfather.datalog" loc="(1,1,1,45)" sort="Clause">
+				<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(1,1,1,17)" sort="Literal">
+					<const filename="grandfather.datalog" loc="(1,1,1,12)" sort="#Id" value="grandfather"/>
+					<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(1,13,1,16)" sort="Terms">
+						<const filename="grandfather.datalog" loc="(1,13,1,14)" sort="#Id" value="X"/>
+						<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(1,13,1,16)" sort="Terms">
+							<const filename="grandfather.datalog" loc="(1,15,1,16)" sort="#Id" value="Z"/>
+							<empty filename="grandfather.datalog" loc="(1,13,1,16)" sort="Terms"/>
 							
 						</term>
 						
 					</term>
 					
 				</term>
-				<term cons="Literals1ListSyn" filename="finish_test.datalog" loc="(1,17,1,29)" sort="Literals">
-					<term cons="Literal1428Syn" filename="finish_test.datalog" loc="(1,17,1,29)" sort="Literal">
-						<const filename="finish_test.datalog" loc="(1,17,1,24)" sort="#Id" value="sibling"/>
-						<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(1,25,1,28)" sort="Terms">
-							<const filename="finish_test.datalog" loc="(1,25,1,26)" sort="#Id" value="Y"/>
-							<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(1,25,1,28)" sort="Terms">
-								<const filename="finish_test.datalog" loc="(1,27,1,28)" sort="#Id" value="X"/>
-								<empty filename="finish_test.datalog" loc="(1,25,1,28)" sort="Terms"/>
+				<term cons="Literals1ListSyn" filename="grandfather.datalog" loc="(1,21,1,45)" sort="Literals">
+					<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(1,21,1,32)" sort="Literal">
+						<const filename="grandfather.datalog" loc="(1,21,1,27)" sort="#Id" value="father"/>
+						<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(1,28,1,31)" sort="Terms">
+							<const filename="grandfather.datalog" loc="(1,28,1,29)" sort="#Id" value="X"/>
+							<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(1,28,1,31)" sort="Terms">
+								<const filename="grandfather.datalog" loc="(1,30,1,31)" sort="#Id" value="Y"/>
+								<empty filename="grandfather.datalog" loc="(1,28,1,31)" sort="Terms"/>
 								
 							</term>
 							
 						</term>
 						
 					</term>
-					<empty filename="finish_test.datalog" loc="(1,17,1,29)" sort="Literals"/>
+					<term cons="Literals1ListSyn" filename="grandfather.datalog" loc="(1,21,1,45)" sort="Literals">
+						<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(1,34,1,45)" sort="Literal">
+							<const filename="grandfather.datalog" loc="(1,34,1,40)" sort="#Id" value="parent"/>
+							<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(1,41,1,44)" sort="Terms">
+								<const filename="grandfather.datalog" loc="(1,41,1,42)" sort="#Id" value="Y"/>
+								<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(1,41,1,44)" sort="Terms">
+									<const filename="grandfather.datalog" loc="(1,43,1,44)" sort="#Id" value="Z"/>
+									<empty filename="grandfather.datalog" loc="(1,41,1,44)" sort="Terms"/>
+									
+								</term>
+								
+							</term>
+							
+						</term>
+						<empty filename="grandfather.datalog" loc="(1,21,1,45)" sort="Literals"/>
+						
+					</term>
 					
 				</term>
 				
 			</term>
-			<term cons="Stmt1430Syn" filename="finish_test.datalog" loc="(2,1,2,23)" sort="Stmt">
-				<term cons="Clause1429Syn" filename="finish_test.datalog" loc="(2,1,2,22)" sort="Clause">
-					<term cons="Literal1428Syn" filename="finish_test.datalog" loc="(2,1,2,18)" sort="Literal">
-						<const filename="finish_test.datalog" loc="(2,1,2,8)" sort="#Id" value="sibling"/>
-						<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(2,9,2,17)" sort="Terms">
-							<const filename="finish_test.datalog" loc="(2,9,2,12)" sort="#String" value="&quot;b&quot;"/>
-							<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(2,9,2,17)" sort="Terms">
-								<const filename="finish_test.datalog" loc="(2,14,2,17)" sort="#String" value="&quot;a&quot;"/>
-								<empty filename="finish_test.datalog" loc="(2,9,2,17)" sort="Terms"/>
+			<term cons="Stmt1432Syn" filename="grandfather.datalog" loc="(2,1,5,22)" sort="Stmt">
+				<term cons="Clause1429Syn" filename="grandfather.datalog" loc="(2,1,2,27)" sort="Clause">
+					<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(2,1,2,12)" sort="Literal">
+						<const filename="grandfather.datalog" loc="(2,1,2,7)" sort="#Id" value="parent"/>
+						<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(2,8,2,11)" sort="Terms">
+							<const filename="grandfather.datalog" loc="(2,8,2,9)" sort="#Id" value="X"/>
+							<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(2,8,2,11)" sort="Terms">
+								<const filename="grandfather.datalog" loc="(2,10,2,11)" sort="#Id" value="Y"/>
+								<empty filename="grandfather.datalog" loc="(2,8,2,11)" sort="Terms"/>
 								
 							</term>
 							
 						</term>
 						
 					</term>
-					<empty filename="finish_test.datalog" loc="(2,22,2,22)" sort="Literals"/>
+					<term cons="Literals1ListSyn" filename="grandfather.datalog" loc="(2,16,2,27)" sort="Literals">
+						<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(2,16,2,27)" sort="Literal">
+							<const filename="grandfather.datalog" loc="(2,16,2,22)" sort="#Id" value="father"/>
+							<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(2,23,2,26)" sort="Terms">
+								<const filename="grandfather.datalog" loc="(2,23,2,24)" sort="#Id" value="X"/>
+								<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(2,23,2,26)" sort="Terms">
+									<const filename="grandfather.datalog" loc="(2,25,2,26)" sort="#Id" value="Y"/>
+									<empty filename="grandfather.datalog" loc="(2,23,2,26)" sort="Terms"/>
+									
+								</term>
+								
+							</term>
+							
+						</term>
+						<empty filename="grandfather.datalog" loc="(2,16,2,27)" sort="Literals"/>
+						
+					</term>
+					
+				</term>
+				<term cons="Stmt1432Syn" filename="grandfather.datalog" loc="(3,1,5,22)" sort="Stmt">
+					<term cons="Clause1429Syn" filename="grandfather.datalog" loc="(3,1,3,27)" sort="Clause">
+						<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(3,1,3,12)" sort="Literal">
+							<const filename="grandfather.datalog" loc="(3,1,3,7)" sort="#Id" value="parent"/>
+							<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(3,8,3,11)" sort="Terms">
+								<const filename="grandfather.datalog" loc="(3,8,3,9)" sort="#Id" value="X"/>
+								<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(3,8,3,11)" sort="Terms">
+									<const filename="grandfather.datalog" loc="(3,10,3,11)" sort="#Id" value="Y"/>
+									<empty filename="grandfather.datalog" loc="(3,8,3,11)" sort="Terms"/>
+									
+								</term>
+								
+							</term>
+							
+						</term>
+						<term cons="Literals1ListSyn" filename="grandfather.datalog" loc="(3,16,3,27)" sort="Literals">
+							<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(3,16,3,27)" sort="Literal">
+								<const filename="grandfather.datalog" loc="(3,16,3,22)" sort="#Id" value="mother"/>
+								<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(3,23,3,26)" sort="Terms">
+									<const filename="grandfather.datalog" loc="(3,23,3,24)" sort="#Id" value="X"/>
+									<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(3,23,3,26)" sort="Terms">
+										<const filename="grandfather.datalog" loc="(3,25,3,26)" sort="#Id" value="Y"/>
+										<empty filename="grandfather.datalog" loc="(3,23,3,26)" sort="Terms"/>
+										
+									</term>
+									
+								</term>
+								
+							</term>
+							<empty filename="grandfather.datalog" loc="(3,16,3,27)" sort="Literals"/>
+							
+						</term>
+						
+					</term>
+					<term cons="Stmt1432Syn" filename="grandfather.datalog" loc="(4,1,5,22)" sort="Stmt">
+						<term cons="Clause1429Syn" filename="grandfather.datalog" loc="(4,1,4,21)" sort="Clause">
+							<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(4,1,4,17)" sort="Literal">
+								<const filename="grandfather.datalog" loc="(4,1,4,7)" sort="#Id" value="father"/>
+								<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(4,8,4,16)" sort="Terms">
+									<const filename="grandfather.datalog" loc="(4,8,4,11)" sort="#String" value="&quot;a&quot;"/>
+									<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(4,8,4,16)" sort="Terms">
+										<const filename="grandfather.datalog" loc="(4,13,4,16)" sort="#String" value="&quot;b&quot;"/>
+										<empty filename="grandfather.datalog" loc="(4,8,4,16)" sort="Terms"/>
+										
+									</term>
+									
+								</term>
+								
+							</term>
+							<empty filename="grandfather.datalog" loc="(4,21,4,21)" sort="Literals"/>
+							
+						</term>
+						<term cons="Stmt1430Syn" filename="grandfather.datalog" loc="(5,1,5,22)" sort="Stmt">
+							<term cons="Clause1429Syn" filename="grandfather.datalog" loc="(5,1,5,21)" sort="Clause">
+								<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(5,1,5,17)" sort="Literal">
+									<const filename="grandfather.datalog" loc="(5,1,5,7)" sort="#Id" value="mother"/>
+									<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(5,8,5,16)" sort="Terms">
+										<const filename="grandfather.datalog" loc="(5,8,5,11)" sort="#String" value="&quot;b&quot;"/>
+										<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(5,8,5,16)" sort="Terms">
+											<const filename="grandfather.datalog" loc="(5,13,5,16)" sort="#String" value="&quot;c&quot;"/>
+											<empty filename="grandfather.datalog" loc="(5,8,5,16)" sort="Terms"/>
+											
+										</term>
+										
+									</term>
+									
+								</term>
+								<empty filename="grandfather.datalog" loc="(5,21,5,21)" sort="Literals"/>
+								
+							</term>
+							
+						</term>
+						
+					</term>
 					
 				</term>
 				
 			</term>
 			
 		</term>
-		<term cons="Query1433Syn" filename="finish_test.datalog" loc="(3,1,3,17)" sort="Query">
-			<term cons="Literal1428Syn" filename="finish_test.datalog" loc="(3,1,3,16)" sort="Literal">
-				<const filename="finish_test.datalog" loc="(3,1,3,8)" sort="#Id" value="sibling"/>
-				<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(3,9,3,15)" sort="Terms">
-					<const filename="finish_test.datalog" loc="(3,9,3,12)" sort="#String" value="&quot;a&quot;"/>
-					<term cons="Terms1ListSyn" filename="finish_test.datalog" loc="(3,9,3,15)" sort="Terms">
-						<const filename="finish_test.datalog" loc="(3,14,3,15)" sort="#Id" value="X"/>
-						<empty filename="finish_test.datalog" loc="(3,9,3,15)" sort="Terms"/>
+		<term cons="Query1433Syn" filename="grandfather.datalog" loc="(6,1,6,21)" sort="Query">
+			<term cons="Literal1428Syn" filename="grandfather.datalog" loc="(6,1,6,20)" sort="Literal">
+				<const filename="grandfather.datalog" loc="(6,1,6,12)" sort="#Id" value="grandfather"/>
+				<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(6,13,6,19)" sort="Terms">
+					<const filename="grandfather.datalog" loc="(6,13,6,16)" sort="#String" value="&quot;a&quot;"/>
+					<term cons="Terms1ListSyn" filename="grandfather.datalog" loc="(6,13,6,19)" sort="Terms">
+						<const filename="grandfather.datalog" loc="(6,18,6,19)" sort="#Id" value="X"/>
+						<empty filename="grandfather.datalog" loc="(6,13,6,19)" sort="Terms"/>
 						
 					</term>
 					
