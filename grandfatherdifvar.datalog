@@ -1,6 +1,0 @@
-grandfather(X,Z) :- father(X,Y), parent(Y,Z).
-parent(A,B) :- father(A,B).
-parent(D,C) :- mother(D,C).
-father("a", "b") :- .
-mother("b", "c") :- .
-grandfather("a", F)?
