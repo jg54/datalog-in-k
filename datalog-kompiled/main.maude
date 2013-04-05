@@ -1,8 +1,0 @@
-load "/cygdrive/C/Users/John/Desktop/k/k-latest/k/bin/maude/lib/k-prelude"
-load "base.maude"
-load "builtins.maude"
-mod DATALOG is 
-  including DATALOG-BASE .
-  including DATALOG-BUILTINS .
-  including K-STRICTNESS-DEFAULTS .
-endm
