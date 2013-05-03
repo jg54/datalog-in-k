@@ -14,11 +14,16 @@ module DATALOG-SYNTAX
 	syntax Literals ::= List{Literal,","}
 					
 	syntax Clause ::= Literal ":-" Literals
+
+	syntax Fact ::= Literal "."
 					
 	syntax Clauses ::= List{Clause,","}
 					
 	syntax Stmt ::= Clause "."
-				> 	Clause "." Stmt
+				|	Fact				
+				| 	Clause "." Stmt
+				|	Fact Stmt
+				
 	
 	syntax Query ::= Literal "?"
 	
@@ -31,16 +36,22 @@ endmodule
 module DATALOG
   imports DATALOG-SYNTAX
   
-  syntax MaybeLiteral ::= Some(Literal) | "None"
-  
   syntax K ::= unifys(Terms, Terms) | "does not unify" | unify(Term, Term) 
-			| FindMatchingClauses(Clauses, Literal) | print(K) | "active" MaybeLiteral
-			|NormalizeL(Literal)	| Normalize( Int, Map, Terms ) | NormalizeFL(Literals) 
+			| FindMatchingClauses(Set, Literal) | print(K) 
 			| Sub(Terms, Map) | SubT(Term, Map) | SubLs(Literals, Map) | SubL(Literal, Map) 
 			| "done" | "applySub" | Mgu(Map) //if Map contains(X |-> Y) then X <String Y
-			| NormalizeMaybe(MaybeLiteral) | SubMaybe(MaybeLiteral, Map) | First(Literals) | printS(String)
-			| canUnify(Terms, Terms) | "True" | "False"
-	
+			| First(Literals) | printS(String)
+			| canUnify(Terms, Terms) | "True" | "False" | "NewGoal" | "Init" 
+			| Freshen(Int, Terms) | FreshenLs(Int, Literals) | FreshenL(Int, Literal)
+			| Contains(Set, Literal) | Compare(Terms, Terms) | CompareT(Term, Term)
+
+  syntax Broadcast ::= Int "," Fact
+
+  syntax Set ::= NormalizeS(Set)
+
+  syntax K ::= NormalizeL(Literal) [function]
+  syntax K ::= Normalize( Int, Map, Terms ) [function] 
+
   syntax Val ::= String
 			 |	 Int
   
@@ -49,107 +60,157 @@ module DATALOG
 					<threads>
 						<thread multiplicity="*">
 							<k> $PGM:Program </k>
-							<Root> .K </Root>
-							<Clause> .K </Clause>
 							<Used> .Set </Used>
+							<Usable> .Set </Usable>
+							<Id> 0 </Id>
 						</thread>
                     </threads>
-                    <Database> .Clauses </Database>	
-					<Table> .Set </Table>		
+                    <Database> .Set </Database>	
+					<Rulebase> .Set </Rulebase>
+					<Table> .Set </Table>
+					<Broadcast> .Set </Broadcast>
+					<Dead> .Set </Dead>
+					<Active> 0 </Active>
+					<freshen> 0 </freshen>	
+					<IdCounter> 0 </IdCounter>
 					<printer> .K </printer>
 					<originalQuery> .K </originalQuery>
 					<globalout stream="stdout"> .List </globalout>
-					
                 </C>
 				
 	rule [Assertion]:
 		<k> ( C:Clause . S:Stmt Q:Query => S Q)</k>
-		<Database> D:Clauses => C, D </Database>
+		<Rulebase> R:Set => R SetItem(C) </Rulebase>
+
+	rule [Assertion]:
+		<k> ( F:Fact S:Stmt Q:Query => S Q)</k>
+		<Database> D:Set => D SetItem(F) </Database>	
 		
 	rule [Assertion-Last-Clause]:
 		<k> ( C:Clause . Q:Query => Q ) </k>
-		<Database> D:Clauses => C, D </Database>		
+		<Rulebase> R:Set => R SetItem(C) </Rulebase>
+	
+	rule [Assertion-Last-Clause]:
+		<k> ( F:Fact Q:Query => Q ) </k>
+		<Database> D:Set => D SetItem(F) </Database>		
 	
 	rule [Query-Copy-Data]:
 		<k> (S:PredicateSymbol ( T:Terms ) ? => FindMatchingClauses(D, S ( Normalize(0, .Map, T) ) )) ...</k> 		
-		<Database>D:Clauses</Database>
-		<Table> . => SetItem( S ( Normalize(0, .Map, T) ), . ) </Table>
+		<Rulebase>D:Set</Rulebase>
+		<Table> . => SetItem( S ( Normalize(0, .Map, T) )) </Table>
 		<originalQuery> . => S:PredicateSymbol ( T:Terms ) </originalQuery>
 		
 	
 	rule [New-Root-In-List]:
-		<k> FindMatchingClauses(S:PredicateSymbol (T2:Terms) :- Ls:Literals, D:Clauses, S ( T:Terms ) ) 
-			=> FindMatchingClauses(D, S ( T ) ) </k>  
-		(. => <thread>... <k> unifys(T2, T) ~> applySub ~> active First(Ls) </k> 
-						  <Root> S ( T ) ?</Root>
-						  <Clause> S ( T2 ) :- Ls </Clause>
+		<k> FindMatchingClauses(SetItem(S:PredicateSymbol (T2:Terms) :- Ls:Literals) R:Set, S ( T:Terms ) ) 
+			=> FindMatchingClauses(R, S ( T ) ) </k>  
+		(. => <thread>... <k> unifys(Freshen(N, T2), T) ~> Init ~> applySub ~> S ( Freshen(N, T2) ) :- FreshenLs(N, Ls) </k> 
 						  <Used> .Set </Used>
+						  <Usable> D </Usable>
+						  <Id> I </Id>
 						  ...</thread>) 
+		<freshen> N:Int => N +Int 1 </freshen>
+		<Database> D:Set </Database>
+		<IdCounter> I:Int => I +Int 1 </IdCounter>
 		
 	rule [New-Root-Not-In-List]:
-		<k> FindMatchingClauses(S1:PredicateSymbol (T2:Terms) :- Ls:Literals, D:Clauses, S:PredicateSymbol ( T:Terms ) ) 
-			=> FindMatchingClauses(D:Clauses, S:PredicateSymbol ( T:Terms ) ) </k> 
+		<k> FindMatchingClauses(SetItem(S1:PredicateSymbol (T2:Terms) :- Ls:Literals) D:Set, S:PredicateSymbol ( T:Terms ) ) 
+			=> FindMatchingClauses(D, S:PredicateSymbol ( T:Terms ) ) </k> 
 		when notBool(Id2String(S1) ==String Id2String(S))
 		
 	rule [New-Root-Empty]:
 		<thread>
-		<k> FindMatchingClauses(.Clauses, L:Literal) ...</k>
-		...</thread> => .	
+		<k> FindMatchingClauses(.Set, L:Literal) ...</k>
+		...</thread> => .
 	
-	rule [Active-Node-In-Table]:
-		<k> active Some(S1:PredicateSymbol ( T1:Terms )) </k>
-		<Root> R ?</Root>
-		<Clause> H:Literal :- S:PredicateSymbol ( Ts:Terms ), Ls:Literals </Clause>
-		<Used> U:Set => U SetItem(S1 ( T1 ), S2 ( T2 ) )</Used>
-		<Table>... SetItem( S1 ( T1 ), S2:PredicateSymbol ( T2:Terms ) ) ...</Table>
-		(. => <thread>... <k>unifys(Ts, T2) ~> applySub ~> active First(Ls) </k>
-				  <Root> R ?</Root>
-				  <Clause> H :- Ls </Clause>
+	rule [Active-Node-Check-Table]:
+		<k> Init ~> H:Literal :- S:PredicateSymbol ( Ts:Terms ), Ls:Literals 
+				 => Contains(NormalizeS(T), NormalizeL(S ( Ts ))) ~> H :- S ( Ts ), Ls ...</k>
+		<Table> T:Set </Table>
+
+	rule NormalizeS(SetItem(I:Literal) T:Set) => SetItem(NormalizeL(I)) NormalizeS(T) [anywhere]
+	rule NormalizeS(.Set) => .Set [anywhere]	
+
+	rule <k> Contains(SetItem(L) T:Set, L:Literal)
+		 => . ...</k>
+
+	rule <k> Contains(T:Set, L:Literal)
+		 => NewGoal ...</k>
+		 when notBool(L in T)
+		 	
+	rule [Active-Node-Not-In-Table]:
+		<k> NewGoal ~> H:Literal :- S:PredicateSymbol ( Ts:Terms ), Ls:Literals 
+				 =>  H:Literal :- S ( Ts ), Ls </k>
+		<Table> T:Set => T SetItem( S ( Ts )) </Table>
+		<Rulebase>R:Set</Rulebase>
+		<Database> D:Set </Database>
+		(. => <thread>... <k> FindMatchingClauses(R, S ( Ts ))</k>
 			...</thread>)
-		when notBool (S1 ( T1 ), S2 ( T2 )) in U
+
+	rule [Active-Node-In-Table]:
+		<k> H:Literal :- S1:PredicateSymbol ( T1:Terms ), Ls:Literals </k>
+		<Usable> SetItem(S1 ( T2:Terms ) .) S:Set => S </Usable>
+		<Used> U:Set => U SetItem(S1 ( T2 ))</Used>
+		<Database> D </Database>
+		<IdCounter> I:Int => I +Int 1 </IdCounter>
+		(. => <thread>... <k>unifys(T1, T2) ~> Init ~> applySub ~> H :- Ls </k>
+						  <Usable> D </Usable>
+						  <Id> I </Id>
+			...</thread>)
+		when notBool (S1 ( T2 )) in U
+
+	rule [Broadcast]:
+		<threads>...		
+			<thread>...
+				<Usable>... . => SetItem(F) ...</Usable>
+				<Id> I </Id>
+			...</thread>
+		...</threads>
+		<Broadcast> SetItem(I:Int, F:Fact) B:Set => SetItem(I +Int 1, F) B </Broadcast>
+
+	rule [Dead-Id]:
+		<Broadcast> SetItem(I, F:Fact) B:Set => SetItem(I +Int 1, F) B </Broadcast>
+		<Dead>... SetItem(I:Int) ...</Dead>
+
+	rule [End-Broadcast]:
+		<Broadcast> SetItem(I, F:Fact) B:Set => B </Broadcast>
+		<IdCounter> I2:Int </IdCounter>
+		when I ==Int I2
 		
+
 	rule [First-Empty]:
-		First(.Literals) => None [anywhere]
+		First(.Literals) => . [anywhere]
 		
 	rule [First-Not-Empty]:
-		First(L:Literal, Ls:Literals) => Some(L) [anywhere]
-
-	rule [Active-Node-Not-In-Table]:
-		<k> active Some(S:PredicateSymbol ( Ts:Terms )) </k>
-		<Table> T:Set => T SetItem( S ( Ts ), . ) </Table>
-		<Database>D:Clauses</Database>
-		(. => <thread>... <k> FindMatchingClauses(D, S ( Ts ))</k>
-			...</thread>)
-		when notBool (S ( Ts ), .)  in T
+		First(L:Literal, Ls:Literals) => L ?[anywhere]
 		
-	rule [Add-Answer-to-Table]:
+	rule [Add-Answer-to-Database]:
 		(<thread>
-		<k> active None </k> 
-		<Root> S:PredicateSymbol ( Ts:Terms ) ?</Root>
-		<Clause> S1:PredicateSymbol ( T1s:Terms ) :- .Literals </Clause>
+		<k> Init ~> S1:PredicateSymbol ( T1s:Terms ) :- .Literals </k>
+		<Id> I:Int </Id>
 		...</thread> => .)
-		<Database>D:Clauses => S1 ( T1s ) :- .Literals, D </Database>
-		<Table>... . => SetItem(S ( Normalize(0, .Map, Ts) ), S1 ( T1s )) ...</Table>
+		<Database>D:Set => SetItem(S1 ( T1s ) .) D </Database>
+		<Broadcast>... . => SetItem(0, S1 ( T1s ) .) ...</Broadcast>
+		<Dead>... . => SetItem(I) ...</Dead>
 		<printer> X => X ~> print(S1 ( T1s )) </printer>
 		
 	
-	syntax K ::= resolveAmbiguityLiterals(Literals) | resolveAmbiguityTerms(Terms)
+	syntax K ::= resolveAmbiguityLiterals(Literals) | resolveAmbiguityTerms(Terms) | resolveAmbiguityLiteral(Literal)
 	rule resolveAmbiguityLiterals(X) => X [anywhere]
 	rule resolveAmbiguityTerms(X) => X [anywhere]
-	
+	rule resolveAmbiguityLiteral(X) => X [anywhere]
+
 	rule [Apply-Substitution]:
-		<k> Mgu(M:Map) ~> applySub ~> active ML:MaybeLiteral
-			=> active NormalizeMaybe(SubMaybe(ML, M)) </k>
-		<Clause> S:PredicateSymbol ( T:Terms ) :- Ls:Literals => S ( Sub(T, M)) :- SubLs(Ls, M)  </Clause>
+		<k> Mgu(M:Map) ~> Init ~> applySub ~> S:PredicateSymbol ( T:Terms ) :- Ls:Literals => Init ~> S ( Sub(T, M)) :- SubLs(Ls, M)</k>
 	
-	rule NormalizeMaybe(Some(L)) => Some(NormalizeL(L)) [anywhere]
-	rule NormalizeMaybe(None) => None [anywhere]
-	
-	rule [Normalize-Literal]:
-		NormalizeL( S:PredicateSymbol ( T:Terms )) => S ( Normalize( 0, .Map, T) ) [anywhere]
-	
-	rule SubMaybe(Some(L), M:Map) => Some(SubL(L, M)) [anywhere]
-	rule SubMaybe(None, M) => None [anywhere]
+	rule NormalizeL( S:PredicateSymbol ( T:Terms )) => S ( Normalize( 0, .Map, T) ) [anywhere]
+	rule NormalizeL( . ) => . [anywhere]
+
+	rule FreshenLs(N:Int, L:Literal, Ls:Literals) => resolveAmbiguityLiterals(FreshenL(N, L), FreshenLs(N, Ls))[anywhere]
+	rule FreshenLs(N, .Literals ) => .Literals [anywhere]
+
+	rule FreshenL(N, S:PredicateSymbol ( T:Terms )) => resolveAmbiguityLiteral(S ( Freshen(N, T) )) [anywhere]
+	rule FreshenL(N, .) => . [anywhere]
 	
 	rule [Sub-Literals]:
 		SubLs(L:Literal, Ls:Literals, M:Map) => resolveAmbiguityLiterals(SubL(L, M), SubLs(Ls, M)) [anywhere]
@@ -157,8 +218,8 @@ module DATALOG
 	rule [Sub-Literals-Empty]:
 		SubLs(.Literals, M:Map) => .Literals [anywhere]
 		
-	rule [Sub-Literal]:
-		SubL(S:PredicateSymbol ( T:Terms ), M:Map) => S ( Sub(T, M) ) [anywhere]
+	rule SubL(S:PredicateSymbol ( T:Terms ), M:Map) => S ( Sub(T, M) ) [anywhere]
+	rule SubL(. , M:Map) => . [anywhere]
 	
 	rule [Sub]:
 		Sub(T:Term, Ts:Terms, M:Map) => resolveAmbiguityTerms(SubT(T, M), Sub(Ts, M)) [anywhere]
@@ -176,6 +237,10 @@ module DATALOG
 		
 	rule [Sub-Value]:
 		SubT(V:Val, M:Map) => V [anywhere]
+
+	rule Freshen(N:Int, V:Val, Ts:Terms) => resolveAmbiguityTerms(V, Freshen(N, Ts)) [anywhere]
+	rule Freshen(N:Int, I:Id, Ts:Terms) => String2Id(Id2String(I) +String "_" +String Int2String(N)), Freshen( N, Ts) [anywhere]
+	rule Freshen(N:Int, .Terms ) => .Terms [anywhere]
 		
 	rule [Normalize-Terms-Val]:
 		Normalize( C:Int, M:Map, V:Val, Ts:Terms) => resolveAmbiguityTerms(V, Normalize(C, M, Ts)) [anywhere]
@@ -185,7 +250,7 @@ module DATALOG
 		when notBool(I in keys(M))[anywhere]
 		
 	rule [Normalize-Terms-Id]:
-		Normalize(C:Int, M:Map(I |-> X:Id), I:Id, Ts:Terms) => X, Normalize( C +Int 1, M, Ts) 
+		Normalize(C:Int, M:Map(I |-> X:Id), I:Id, Ts:Terms) => X, Normalize( C +Int 1, M, Ts) [anywhere]
 
 		
 	rule [Normalize-Terms-Empty]:
